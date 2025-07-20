@@ -1,0 +1,18 @@
+{
+  "values": [
+    "bearsterschessmod:white_square",
+    "bearsterschessmod:black_square",
+    "bearsterschessmod:white_knight",
+    "bearsterschessmod:black_knight",
+    "bearsterschessmod:white_pawn",
+    "bearsterschessmod:black_pawn",
+    "bearsterschessmod:white_rook",
+    "bearsterschessmod:black_rook",
+    "bearsterschessmod:white_bishop",
+    "bearsterschessmod:black_bishop",
+    "bearsterschessmod:white_queen",
+    "bearsterschessmod:black_queen",
+    "bearsterschessmod:white_king",
+    "bearsterschessmod:black_king"
+  ]
+}

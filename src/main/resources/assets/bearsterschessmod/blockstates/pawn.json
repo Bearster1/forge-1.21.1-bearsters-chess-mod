@@ -1,0 +1,39 @@
+{
+  "variants": {
+    "colour=true": {
+      "facing=east": {
+        "model": "bearsterschessmod:block/white_pawn",
+        "y": 90
+      },
+      "facing=north": {
+        "model": "bearsterschessmod:block/white_pawn"
+      },
+      "facing=south": {
+        "model": "bearsterschessmod:block/white_pawn",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "bearsterschessmod:block/white_pawn",
+        "y": 270
+      }
+    },
+
+    "colour=false": {
+      "facing=east": {
+        "model": "bearsterschessmod:block/black_pawn",
+        "y": 90
+      },
+      "facing=north": {
+        "model": "bearsterschessmod:block/black_pawn"
+      },
+      "facing=south": {
+        "model": "bearsterschessmod:block/black_pawn",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "bearsterschessmod:block/black_pawn",
+        "y": 270
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+// 1.21.1	2025-07-15T17:55:46.723108	Tags for minecraft:block mod id bearsterschessmod
+8aa54a4781f10f8889465e2156d878c06fefdaad data/bearsterschessmod/tags/block/is_chess_board.json
+339a66dd1a3a5fc3485dc6ce3ef5a9517f563676 data/minecraft/tags/block/mineable/axe.json
+339a66dd1a3a5fc3485dc6ce3ef5a9517f563676 data/minecraft/tags/block/needs_iron_tool.json

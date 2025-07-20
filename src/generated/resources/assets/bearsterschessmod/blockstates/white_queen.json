@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bearsterschessmod:block/white_queen",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "bearsterschessmod:block/white_queen"
+    },
+    "facing=south": {
+      "model": "bearsterschessmod:block/white_queen",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bearsterschessmod:block/white_queen",
+      "y": 270
+    }
+  }
+}

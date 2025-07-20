@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "bearsterschessmod:block/moveable_square"
+    }
+  }
+}
