@@ -33,11 +33,11 @@ import java.util.List;
 
 public class PawnBlock extends RotationalBlock implements EntityBlock {
     public static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 14, 13);
-    private BooleanProperty COLOUR;
+    public static final BooleanProperty COLOUR = BooleanProperty.create("colour");
 
     public PawnBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(COLOUR, true));
+        this.registerDefaultState(this.defaultBlockState().setValue(COLOUR, true));
     }
 
     @Override

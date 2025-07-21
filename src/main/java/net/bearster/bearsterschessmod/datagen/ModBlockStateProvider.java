@@ -2,10 +2,12 @@ package net.bearster.bearsterschessmod.datagen;
 
 import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
+import net.bearster.bearsterschessmod.block.custom.PawnBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -21,10 +23,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.WHITE_SQUARE);
         blockWithItem(ModBlocks.BLACK_SQUARE);
+        
+        /*
+        
         rotatedBlockWithChessPieceModel(ModBlocks.WHITE_KNIGHT.get(), models().getExistingFile(BearstersChessMod.loc("block/white_knight")));
         rotatedBlockWithChessPieceModel(ModBlocks.BLACK_KNIGHT.get(), models().getExistingFile(BearstersChessMod.loc("block/black_knight")));
-    //    rotatedBlockWithChessPieceModel(ModBlocks.WHITE_PAWN.get(), models().getExistingFile(BearstersChessMod.loc("block/white_pawn")));
-    //    rotatedBlockWithChessPieceModel(ModBlocks.BLACK_PAWN.get(), models().getExistingFile(BearstersChessMod.loc("block/black_pawn")));
+        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_PAWN.get(), models().getExistingFile(BearstersChessMod.loc("block/white_pawn")));
+        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_PAWN.get(), models().getExistingFile(BearstersChessMod.loc("block/black_pawn")));
         rotatedBlockWithChessPieceModel(ModBlocks.WHITE_ROOK.get(), models().getExistingFile(BearstersChessMod.loc("block/white_rook")));
         rotatedBlockWithChessPieceModel(ModBlocks.BLACK_ROOK.get(), models().getExistingFile(BearstersChessMod.loc("block/black_rook")));
         rotatedBlockWithChessPieceModel(ModBlocks.WHITE_BISHOP.get(), models().getExistingFile(BearstersChessMod.loc("block/white_bishop")));
@@ -33,28 +38,53 @@ public class ModBlockStateProvider extends BlockStateProvider {
         rotatedBlockWithChessPieceModel(ModBlocks.BLACK_QUEEN.get(), models().getExistingFile(BearstersChessMod.loc("block/black_queen")));
         rotatedBlockWithChessPieceModel(ModBlocks.WHITE_KING.get(), models().getExistingFile(BearstersChessMod.loc("block/white_king")));
         rotatedBlockWithChessPieceModel(ModBlocks.BLACK_KING.get(), models().getExistingFile(BearstersChessMod.loc("block/black_king")));
+        
+         */
+
+        rotatedBlockWithChessPieceModel(
+                ModBlocks.PAWN.get(),
+                models().getExistingFile(BearstersChessMod.loc("block/white_pawn")),
+                models().getExistingFile(BearstersChessMod.loc("block/black_pawn")),
+                PawnBlock.COLOUR);
+
         simpleBlockWithItem(ModBlocks.MOVEABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/moveable_square")));
+        
     }
+    
+    private void rotatedBlockWithChessPieceModel(Block block, ModelFile whiteModel, ModelFile blackModel, BooleanProperty booleanProperty) {
+        getVariantBuilder(block).forAllStates(state -> {
+            if(state.getValue(booleanProperty)) {
+                Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
 
-    private void rotatedBlockWithChessPieceModel(Block block, ModelFile model) {
-        getVariantBuilder(block)
-                .forAllStates(state -> {
-                    Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+                int yRot = switch (facing) {
+                    case SOUTH -> 180;
+                    case WEST -> 270;
+                    case EAST -> 90;
+                    default -> 0;
+                };
 
-                    int yRot = switch (facing) {
-                        case SOUTH -> 180;
-                        case WEST -> 270;
-                        case EAST -> 90;
-                        default -> 0;
-                    };
+                return ConfiguredModel.builder()
+                        .modelFile(whiteModel)
+                        .rotationY(yRot)
+                        .build();
+            } else {
+                Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
 
-                    return ConfiguredModel.builder()
-                            .modelFile(model)
-                            .rotationY(yRot)
-                            .build();
-                });
+                int yRot = switch (facing) {
+                    case SOUTH -> 180;
+                    case WEST -> 270;
+                    case EAST -> 90;
+                    default -> 0;
+                };
 
-        simpleBlockItem(block, model);
+                return ConfiguredModel.builder()
+                        .modelFile(blackModel)
+                        .rotationY(yRot)
+                        .build();
+                }
+
+        });
+        simpleBlockItem(block, whiteModel);
     }
 
     private void rotatedBlockWithModel(Block block, ModelFile model) {
