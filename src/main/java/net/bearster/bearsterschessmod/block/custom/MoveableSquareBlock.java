@@ -43,7 +43,7 @@ public class MoveableSquareBlock extends Block implements EntityBlock {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                 BlockPos storedPos = moveableSquareBlockEntity.getPiecePosition();
-                pLevel.setBlockAndUpdate(pPos, pLevel.getBlockState(storedPos));
+                pLevel.setBlock(pPos, pLevel.getBlockState(storedPos), 3);
 
                 BlockEntity blockEntity2 = pLevel.getBlockEntity(pPos);
                 if (blockEntity2 instanceof PawnBlockEntity pawnBlockEntity) {
