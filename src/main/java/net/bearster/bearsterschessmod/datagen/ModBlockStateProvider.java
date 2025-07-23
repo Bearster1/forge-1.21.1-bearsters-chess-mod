@@ -23,28 +23,41 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.WHITE_SQUARE);
         blockWithItem(ModBlocks.BLACK_SQUARE);
-        
-        /*
-        
-        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_KNIGHT.get(), models().getExistingFile(BearstersChessMod.loc("block/white_knight")));
-        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_KNIGHT.get(), models().getExistingFile(BearstersChessMod.loc("block/black_knight")));
-        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_PAWN.get(), models().getExistingFile(BearstersChessMod.loc("block/white_pawn")));
-        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_PAWN.get(), models().getExistingFile(BearstersChessMod.loc("block/black_pawn")));
-        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_ROOK.get(), models().getExistingFile(BearstersChessMod.loc("block/white_rook")));
-        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_ROOK.get(), models().getExistingFile(BearstersChessMod.loc("block/black_rook")));
-        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_BISHOP.get(), models().getExistingFile(BearstersChessMod.loc("block/white_bishop")));
-        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_BISHOP.get(), models().getExistingFile(BearstersChessMod.loc("block/black_bishop")));
-        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_QUEEN.get(), models().getExistingFile(BearstersChessMod.loc("block/white_queen")));
-        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_QUEEN.get(), models().getExistingFile(BearstersChessMod.loc("block/black_queen")));
-        rotatedBlockWithChessPieceModel(ModBlocks.WHITE_KING.get(), models().getExistingFile(BearstersChessMod.loc("block/white_king")));
-        rotatedBlockWithChessPieceModel(ModBlocks.BLACK_KING.get(), models().getExistingFile(BearstersChessMod.loc("block/black_king")));
-        
-         */
 
         rotatedBlockWithChessPieceModel(
                 ModBlocks.PAWN.get(),
                 models().getExistingFile(BearstersChessMod.loc("block/white_pawn")),
                 models().getExistingFile(BearstersChessMod.loc("block/black_pawn")),
+                PawnBlock.COLOUR);
+
+        rotatedBlockWithChessPieceModel(
+                ModBlocks.KNIGHT.get(),
+                models().getExistingFile(BearstersChessMod.loc("block/white_knight")),
+                models().getExistingFile(BearstersChessMod.loc("block/black_knight")),
+                PawnBlock.COLOUR);
+
+        rotatedBlockWithChessPieceModel(
+                ModBlocks.ROOK.get(),
+                models().getExistingFile(BearstersChessMod.loc("block/white_rook")),
+                models().getExistingFile(BearstersChessMod.loc("block/black_rook")),
+                PawnBlock.COLOUR);
+
+        rotatedBlockWithChessPieceModel(
+                ModBlocks.BISHOP.get(),
+                models().getExistingFile(BearstersChessMod.loc("block/white_bishop")),
+                models().getExistingFile(BearstersChessMod.loc("block/black_bishop")),
+                PawnBlock.COLOUR);
+
+        rotatedBlockWithChessPieceModel(
+                ModBlocks.QUEEN.get(),
+                models().getExistingFile(BearstersChessMod.loc("block/white_queen")),
+                models().getExistingFile(BearstersChessMod.loc("block/black_queen")),
+                PawnBlock.COLOUR);
+
+        rotatedBlockWithChessPieceModel(
+                ModBlocks.KING.get(),
+                models().getExistingFile(BearstersChessMod.loc("block/white_king")),
+                models().getExistingFile(BearstersChessMod.loc("block/black_king")),
                 PawnBlock.COLOUR);
 
         simpleBlockWithItem(ModBlocks.MOVEABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/moveable_square")));

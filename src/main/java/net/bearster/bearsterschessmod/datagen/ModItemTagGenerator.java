@@ -27,21 +27,12 @@ public class ModItemTagGenerator extends ItemTagsProvider {
         tag(ModTags.Items.BEARSTERS_CHESS_ITEMS)
                 .add(ModBlocks.BLACK_SQUARE.get().asItem())
                 .add(ModBlocks.WHITE_SQUARE.get().asItem())
-                .add(ModBlocks.WHITE_KNIGHT.get().asItem())
-                .add(ModBlocks.BLACK_KNIGHT.get().asItem())
-                /*
-                .add(ModBlocks.WHITE_PAWN.get().asItem())
-                .add(ModBlocks.BLACK_PAWN.get().asItem())
-
-                 */
-                .add(ModBlocks.WHITE_ROOK.get().asItem())
-                .add(ModBlocks.BLACK_ROOK.get().asItem())
-                .add(ModBlocks.WHITE_BISHOP.get().asItem())
-                .add(ModBlocks.BLACK_BISHOP.get().asItem())
-                .add(ModBlocks.WHITE_QUEEN.get().asItem())
-                .add(ModBlocks.BLACK_QUEEN.get().asItem())
-                .add(ModBlocks.WHITE_KING.get().asItem())
-                .add(ModBlocks.BLACK_KING.get().asItem())
+                .add(ModBlocks.KNIGHT.get().asItem())
+                .add(ModBlocks.PAWN.get().asItem())
+                .add(ModBlocks.ROOK.get().asItem())
+                .add(ModBlocks.BISHOP.get().asItem())
+                .add(ModBlocks.QUEEN.get().asItem())
+                .add(ModBlocks.KING.get().asItem())
                 .add(ModBlocks.MOVEABLE_SQUARE.get().asItem());
 
     }

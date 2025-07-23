@@ -17,16 +17,7 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<MoveableSquareBlockEntity>> MOVEABLE_SQUARE_BE =
             BLOCK_ENTITIES.register("moveable_square_be", () -> BlockEntityType.Builder.of(
                     MoveableSquareBlockEntity::new, ModBlocks.MOVEABLE_SQUARE.get()).build(null));
-/*
-    public static final RegistryObject<BlockEntityType<PawnBlockEntity>> WHITE_PAWN_BE =
-            BLOCK_ENTITIES.register("white_pawn_be", () -> BlockEntityType.Builder.of(
-                    PawnBlockEntity::new, ModBlocks.WHITE_PAWN.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<PawnBlockEntity>> BLACK_PAWN_BE =
-            BLOCK_ENTITIES.register("black_pawn_be", () -> BlockEntityType.Builder.of(
-                    PawnBlockEntity::new, ModBlocks.BLACK_PAWN.get()).build(null));
-
- */
     public static final RegistryObject<BlockEntityType<PawnBlockEntity>> PAWN_BE =
             BLOCK_ENTITIES.register("pawn_be", () -> BlockEntityType.Builder.of(
                     PawnBlockEntity::new, ModBlocks.PAWN.get()).build(null));

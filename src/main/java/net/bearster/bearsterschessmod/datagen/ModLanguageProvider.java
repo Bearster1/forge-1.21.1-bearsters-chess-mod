@@ -22,21 +22,12 @@ public class ModLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         add(ModBlocks.WHITE_SQUARE.get(), "White Square");
         add(ModBlocks.BLACK_SQUARE.get(), "Black Square");
-        add(ModBlocks.WHITE_KNIGHT.get(), "White Knight");
-        add(ModBlocks.BLACK_KNIGHT.get(), "Black Knight");
-        /*
-        add(ModBlocks.WHITE_PAWN.get(), "White Pawn");
-        add(ModBlocks.BLACK_PAWN.get(), "Black Pawn");
-
-         */
-        add(ModBlocks.WHITE_ROOK.get(), "White Rook");
-        add(ModBlocks.BLACK_ROOK.get(), "Black Rook");
-        add(ModBlocks.WHITE_BISHOP.get(), "White Bishop");
-        add(ModBlocks.BLACK_BISHOP.get(), "Black Bishop");
-        add(ModBlocks.WHITE_QUEEN.get(), "White Queen");
-        add(ModBlocks.BLACK_QUEEN.get(), "Black Queen");
-        add(ModBlocks.WHITE_KING.get(), "White King");
-        add(ModBlocks.BLACK_KING.get(), "Black King");
+        add(ModBlocks.KNIGHT.get(), "Knight");
+        add(ModBlocks.PAWN.get(), "Pawn");
+        add(ModBlocks.ROOK.get(), "Rook");
+        add(ModBlocks.BISHOP.get(), "Bishop");
+        add(ModBlocks.QUEEN.get(), "Queen");
+        add(ModBlocks.KING.get(), "King");
         add(ModBlocks.MOVEABLE_SQUARE.get(), "Moveable Square");
 
         addCreativeTabType(ModCreativeModeTabs.BEARSTERS_CHESS_MOD_TAB.get(), "Bearster's Chess Mod");

@@ -21,22 +21,12 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModBlocks.WHITE_SQUARE.get());
                         output.accept(ModBlocks.BLACK_SQUARE.get());
-                        output.accept(ModBlocks.WHITE_KNIGHT.get());
-                        output.accept(ModBlocks.BLACK_KNIGHT.get());
-                        /*
-                        output.accept(ModBlocks.WHITE_PAWN.get());
-                        output.accept(ModBlocks.BLACK_PAWN.get());
-
-                         */
+                        output.accept(ModBlocks.KNIGHT.get());
                         output.accept(ModBlocks.PAWN.get());
-                        output.accept(ModBlocks.WHITE_ROOK.get());
-                        output.accept(ModBlocks.BLACK_ROOK.get());
-                        output.accept(ModBlocks.WHITE_BISHOP.get());
-                        output.accept(ModBlocks.BLACK_BISHOP.get());
-                        output.accept(ModBlocks.WHITE_QUEEN.get());
-                        output.accept(ModBlocks.BLACK_QUEEN.get());
-                        output.accept(ModBlocks.WHITE_KING.get());
-                        output.accept(ModBlocks.BLACK_KING.get());
+                        output.accept(ModBlocks.ROOK.get());
+                        output.accept(ModBlocks.BISHOP.get());
+                        output.accept(ModBlocks.QUEEN.get());
+                        output.accept(ModBlocks.KING.get());
                         output.accept(ModBlocks.MOVEABLE_SQUARE.get());
 
 

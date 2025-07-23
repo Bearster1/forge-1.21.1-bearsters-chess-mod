@@ -2,18 +2,12 @@
   "values": [
     "bearsterschessmod:black_square",
     "bearsterschessmod:white_square",
-    "bearsterschessmod:white_knight",
-    "bearsterschessmod:black_knight",
-    "bearsterschessmod:white_pawn",
-    "bearsterschessmod:black_pawn",
-    "bearsterschessmod:white_rook",
-    "bearsterschessmod:black_rook",
-    "bearsterschessmod:white_bishop",
-    "bearsterschessmod:black_bishop",
-    "bearsterschessmod:white_queen",
-    "bearsterschessmod:black_queen",
-    "bearsterschessmod:white_king",
-    "bearsterschessmod:black_king",
+    "bearsterschessmod:knight",
+    "bearsterschessmod:pawn",
+    "bearsterschessmod:rook",
+    "bearsterschessmod:bishop",
+    "bearsterschessmod:queen",
+    "bearsterschessmod:king",
     "bearsterschessmod:moveable_square"
   ]
 }

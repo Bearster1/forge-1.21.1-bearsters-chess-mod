@@ -25,48 +25,23 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLACK_SQUARE = registerBlock("black_square",
             ()-> new Block(BlockBehaviour.Properties.of().strength(1f)));
 
-    public static final RegistryObject<Block> WHITE_KNIGHT = registerBlock("white_knight",
-            ()-> new KnightBlock(BlockBehaviour.Properties.of().strength(1f),"white"));
-
-    public static final RegistryObject<Block> BLACK_KNIGHT = registerBlock("black_knight",
-            ()-> new KnightBlock(BlockBehaviour.Properties.of().strength(1f),"black"));
-
-    /*
-
-    public static final RegistryObject<Block> WHITE_PAWN = registerBlock("white_pawn",
-            ()-> new PawnBlock(BlockBehaviour.Properties.of().strength(1f),"white"));
-
-    public static final RegistryObject<Block> BLACK_PAWN = registerBlock("black_pawn",
-            ()-> new PawnBlock(BlockBehaviour.Properties.of().strength(1f),"black"));
-
-     */
+    public static final RegistryObject<Block> KNIGHT = registerBlock("knight",
+            ()-> new KnightBlock(BlockBehaviour.Properties.of().strength(1f)));
 
     public static final RegistryObject<Block> PAWN = registerBlock("pawn",
             ()-> new PawnBlock(BlockBehaviour.Properties.of().strength(1f)));
 
-    public static final RegistryObject<Block> WHITE_ROOK = registerBlock("white_rook",
-            ()-> new RookBlock(BlockBehaviour.Properties.of().strength(1f),"white"));
+    public static final RegistryObject<Block> ROOK = registerBlock("rook",
+            ()-> new RookBlock(BlockBehaviour.Properties.of().strength(1f)));
 
-    public static final RegistryObject<Block> BLACK_ROOK = registerBlock("black_rook",
-            ()-> new RookBlock(BlockBehaviour.Properties.of().strength(1f),"black"));
+    public static final RegistryObject<Block> BISHOP = registerBlock("bishop",
+            ()-> new BishopBlock(BlockBehaviour.Properties.of().strength(1f)));
 
-    public static final RegistryObject<Block> WHITE_BISHOP = registerBlock("white_bishop",
-            ()-> new BishopBlock(BlockBehaviour.Properties.of().strength(1f),"white"));
+    public static final RegistryObject<Block> QUEEN = registerBlock("queen",
+            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f)));
 
-    public static final RegistryObject<Block> BLACK_BISHOP = registerBlock("black_bishop",
-            ()-> new BishopBlock(BlockBehaviour.Properties.of().strength(1f),"black"));
-
-    public static final RegistryObject<Block> WHITE_QUEEN = registerBlock("white_queen",
-            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f),"white"));
-
-    public static final RegistryObject<Block> BLACK_QUEEN = registerBlock("black_queen",
-            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f),"black"));
-
-    public static final RegistryObject<Block> WHITE_KING = registerBlock("white_king",
-            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f),"white"));
-
-    public static final RegistryObject<Block> BLACK_KING = registerBlock("black_king",
-            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f),"black"));
+    public static final RegistryObject<Block> KING = registerBlock("king",
+            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f)));
 
     public static final RegistryObject<Block> MOVEABLE_SQUARE = registerBlock("moveable_square",
             ()-> new MoveableSquareBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK).noOcclusion()));

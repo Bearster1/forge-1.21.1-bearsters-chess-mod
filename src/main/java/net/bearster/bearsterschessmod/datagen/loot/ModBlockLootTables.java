@@ -18,23 +18,12 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     protected void generate() {
         dropSelf(ModBlocks.WHITE_SQUARE.get());
         dropSelf(ModBlocks.BLACK_SQUARE.get());
-        dropSelf(ModBlocks.WHITE_KNIGHT.get());
-        dropSelf(ModBlocks.BLACK_KNIGHT.get());
-
-        /*
-        dropSelf(ModBlocks.WHITE_PAWN.get());
-        dropSelf(ModBlocks.BLACK_PAWN.get());
-
-         */
+        dropSelf(ModBlocks.KNIGHT.get());
         dropSelf(ModBlocks.PAWN.get());
-        dropSelf(ModBlocks.WHITE_ROOK.get());
-        dropSelf(ModBlocks.BLACK_ROOK.get());
-        dropSelf(ModBlocks.WHITE_BISHOP.get());
-        dropSelf(ModBlocks.BLACK_BISHOP.get());
-        dropSelf(ModBlocks.WHITE_QUEEN.get());
-        dropSelf(ModBlocks.BLACK_QUEEN.get());
-        dropSelf(ModBlocks.WHITE_KING.get());
-        dropSelf(ModBlocks.BLACK_KING.get());
+        dropSelf(ModBlocks.ROOK.get());
+        dropSelf(ModBlocks.BISHOP.get());
+        dropSelf(ModBlocks.QUEEN.get());
+        dropSelf(ModBlocks.KING.get());
     }
 
     @Override

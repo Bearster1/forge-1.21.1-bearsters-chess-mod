@@ -1,15 +1,14 @@
-// 1.21.1	2025-07-15T17:55:46.7218677	Loot Tables
+// 1.21.1	2025-07-23T17:07:31.5099516	Loot Tables
 45c7927b966cd1bd7185e880c6f11a3c3b234371 data/bearsterschessmod/loot_table/blocks/black_bishop.json
 c4d25596db308aa3f3a68417dcac69c71065f203 data/bearsterschessmod/loot_table/blocks/black_king.json
 0fd634135651328dbce5f0e5b66e6bbbfceee240 data/bearsterschessmod/loot_table/blocks/black_knight.json
-98d4ec1dde170c4aa376f02171eb1e940ecad116 data/bearsterschessmod/loot_table/blocks/black_pawn.json
 7ce25c7d8a545c145432ff8dd72edac52150d37d data/bearsterschessmod/loot_table/blocks/black_queen.json
 cab8333b6bb350e80046759a2eab35092e7b343c data/bearsterschessmod/loot_table/blocks/black_rook.json
 a63a8934adf85219da5e5002f449b56d4807e6ee data/bearsterschessmod/loot_table/blocks/black_square.json
+54c5e671ab4ff7776deccb2b7aae6d14ab81ffc6 data/bearsterschessmod/loot_table/blocks/pawn.json
 4aebfe6d43949419272deb506d126953200cdc8f data/bearsterschessmod/loot_table/blocks/white_bishop.json
 276583677cbba819dc0cbc9fd4134187ba9bebe9 data/bearsterschessmod/loot_table/blocks/white_king.json
 3e018795444e31c0240960cd3098ae9e6901b8ee data/bearsterschessmod/loot_table/blocks/white_knight.json
-a2a7de7ed788a9b2e2e8c203f2cb6ace39fa692d data/bearsterschessmod/loot_table/blocks/white_pawn.json
 dda1082c77a55023cebb8f2d8045a4701541b330 data/bearsterschessmod/loot_table/blocks/white_queen.json
 7667f50c6903046db1f3f3d373c30bea8ca81d54 data/bearsterschessmod/loot_table/blocks/white_rook.json
 098b4a122c6ff0e4b8691602491b7fdaa1166fed data/bearsterschessmod/loot_table/blocks/white_square.json

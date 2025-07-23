@@ -43,6 +43,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(COLOUR);
     }
 
@@ -69,15 +70,26 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+
+
+
+        BearstersChessMod.LOGGER.info("Used Item On :)");
         if (!pLevel.isClientSide()) {
-            if (pStack.is(ModBlocks.WHITE_SQUARE.get().asItem())) {
-                this.stateDefinition.any().setValue(COLOUR, true);
-            } else if (pStack.is(ModBlocks.BLACK_SQUARE.get().asItem())) {
-                this.stateDefinition.any().setValue(COLOUR, false);
+            BearstersChessMod.LOGGER.info("This is client side");
+            boolean colour = pState.getValue(COLOUR);
+            if (pStack.is(ModBlocks.WHITE_SQUARE.get().asItem()) && !colour) {
+                BearstersChessMod.LOGGER.info("Turning black");
+                pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
+                BearstersChessMod.LOGGER.info("Should be black");
+            } else if (pStack.is(ModBlocks.BLACK_SQUARE.get().asItem()) && colour) {
+                BearstersChessMod.LOGGER.info("Turning white");
+                pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
+                BearstersChessMod.LOGGER.info("Should be white");
             }
         }
 
         return ItemInteractionResult.SUCCESS;
+
     }
 
     @Override
@@ -92,7 +104,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                 if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                         pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                    pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                     BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                     if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                         moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -106,7 +118,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                 if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                         pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                    pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                     BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                     if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                         moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -120,7 +132,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                 if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                         pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                    pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                     BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                     if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                         moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -134,7 +146,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                 if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                         pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                    pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                     BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                     if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                         moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -156,7 +168,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                             if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                                     pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                                 BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                                 if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                                     moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -168,7 +180,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                             if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                                     pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                                 BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                                 if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                                     moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -180,7 +192,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                             if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                                     pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                                 BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                                 if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                                     moveableSquareBlockEntity.setPiecePosition(pPos);
@@ -192,7 +204,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                             if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
                                     pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlock(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState(), 3);
+                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
                                 BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
                                 if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                                     moveableSquareBlockEntity.setPiecePosition(pPos);
