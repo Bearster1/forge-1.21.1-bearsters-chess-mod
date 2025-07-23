@@ -2,7 +2,7 @@ package net.bearster.bearsterschessmod.datagen;
 
 import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
-import net.bearster.bearsterschessmod.block.custom.PawnBlock;
+import net.bearster.bearsterschessmod.block.custom.*;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
@@ -34,31 +34,31 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 ModBlocks.KNIGHT.get(),
                 models().getExistingFile(BearstersChessMod.loc("block/white_knight")),
                 models().getExistingFile(BearstersChessMod.loc("block/black_knight")),
-                PawnBlock.COLOUR);
+                KnightBlock.COLOUR);
 
         rotatedBlockWithChessPieceModel(
                 ModBlocks.ROOK.get(),
                 models().getExistingFile(BearstersChessMod.loc("block/white_rook")),
                 models().getExistingFile(BearstersChessMod.loc("block/black_rook")),
-                PawnBlock.COLOUR);
+                RookBlock.COLOUR);
 
         rotatedBlockWithChessPieceModel(
                 ModBlocks.BISHOP.get(),
                 models().getExistingFile(BearstersChessMod.loc("block/white_bishop")),
                 models().getExistingFile(BearstersChessMod.loc("block/black_bishop")),
-                PawnBlock.COLOUR);
+                BishopBlock.COLOUR);
 
         rotatedBlockWithChessPieceModel(
                 ModBlocks.QUEEN.get(),
                 models().getExistingFile(BearstersChessMod.loc("block/white_queen")),
                 models().getExistingFile(BearstersChessMod.loc("block/black_queen")),
-                PawnBlock.COLOUR);
+                QueenBlock.COLOUR);
 
         rotatedBlockWithChessPieceModel(
                 ModBlocks.KING.get(),
                 models().getExistingFile(BearstersChessMod.loc("block/white_king")),
                 models().getExistingFile(BearstersChessMod.loc("block/black_king")),
-                PawnBlock.COLOUR);
+                KingBlock.COLOUR);
 
         simpleBlockWithItem(ModBlocks.MOVEABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/moveable_square")));
         
