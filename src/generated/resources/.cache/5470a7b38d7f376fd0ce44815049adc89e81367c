@@ -1,4 +1,5 @@
-// 1.21.1	2025-07-23T17:51:06.1837219	Block States: bearsterschessmod
+// 1.21.1	2025-07-24T16:12:24.4998307	Block States: bearsterschessmod
+b0127080980cc94c5415bd4188a6c43f3d069f1d assets/bearsterschessmod/blockstates/attackable_square.json
 21330b6f56c6c0a41a73fb15cff1640ad9232a5f assets/bearsterschessmod/blockstates/bishop.json
 429a8f06e9c7e508e38d1bfe70085d36daf6d630 assets/bearsterschessmod/blockstates/black_square.json
 1916b62b62cee9f1bf9c83fc255b1b909ff16180 assets/bearsterschessmod/blockstates/king.json
@@ -10,6 +11,7 @@ bdb557867a316350aca0f1f5d181d1d31a16a511 assets/bearsterschessmod/blockstates/kn
 1678310db4e329dfb479a216bcf71662720ca1c9 assets/bearsterschessmod/blockstates/white_square.json
 c1fc5fc2fe6576b31c164db4e47db1e55c7573be assets/bearsterschessmod/models/block/black_square.json
 8eb96fe6ddb86dc815496d4dc89d28ff30b200ac assets/bearsterschessmod/models/block/white_square.json
+ce46130efde99dbd0982a2464af9f5ff85e93c3d assets/bearsterschessmod/models/item/attackable_square.json
 b9940f1e9dce4fa7ba9458d55494d359fcc47efb assets/bearsterschessmod/models/item/bishop.json
 d93bebe39b2b51446c1260e094b9650870c37576 assets/bearsterschessmod/models/item/black_square.json
 fb900d65e7c87ee0ed39bba2e576e81a33b26d70 assets/bearsterschessmod/models/item/king.json

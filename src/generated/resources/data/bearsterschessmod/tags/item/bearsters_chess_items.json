@@ -8,6 +8,7 @@
     "bearsterschessmod:bishop",
     "bearsterschessmod:queen",
     "bearsterschessmod:king",
-    "bearsterschessmod:moveable_square"
+    "bearsterschessmod:moveable_square",
+    "bearsterschessmod:attackable_square"
   ]
 }

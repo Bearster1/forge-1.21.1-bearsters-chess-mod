@@ -44,5 +44,13 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.WHITE_SQUARE.get())
                 .add(ModBlocks.BLACK_SQUARE.get());
 
+        this.tag(ModTags.Blocks.IS_CHESS_PIECE)
+                .add(ModBlocks.KNIGHT.get())
+                .add(ModBlocks.PAWN.get())
+                .add(ModBlocks.ROOK.get())
+                .add(ModBlocks.BISHOP.get())
+                .add(ModBlocks.QUEEN.get())
+                .add(ModBlocks.KING.get());
+
     }
 }

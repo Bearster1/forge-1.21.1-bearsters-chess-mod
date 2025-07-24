@@ -1,4 +1,5 @@
-// 1.21.1	2025-07-23T17:51:06.1857359	Tags for minecraft:block mod id bearsterschessmod
+// 1.21.1	2025-07-24T16:12:24.5018911	Tags for minecraft:block mod id bearsterschessmod
 8aa54a4781f10f8889465e2156d878c06fefdaad data/bearsterschessmod/tags/block/is_chess_board.json
+88488c8c6acb57ee01815fbba288e44f6696473a data/bearsterschessmod/tags/block/is_chess_piece.json
 eb6a0491f846a0f19b2c4048c4741a59028e449a data/minecraft/tags/block/mineable/axe.json
 d16cacc6f856d3c2d3d38ec417f43aefb5bf1697 data/minecraft/tags/block/needs_iron_tool.json

@@ -16,19 +16,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class QueenBlock extends RotationalBlock {
+public class QueenBlock extends ChessPieceBlock {
     public static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 16, 13);
-    public static final BooleanProperty COLOUR = BooleanProperty.create("colour");
 
     public QueenBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(COLOUR, true));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(COLOUR);
     }
 
     @Override
@@ -56,17 +48,7 @@ public class QueenBlock extends RotationalBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-
-        if (!pLevel.isClientSide()) {
-            boolean colour = pState.getValue(COLOUR);
-            if (pStack.is(ModBlocks.WHITE_SQUARE.get().asItem()) && !colour) {
-                pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
-            } else if (pStack.is(ModBlocks.BLACK_SQUARE.get().asItem()) && colour) {
-                pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
-            }
-        }
-
+        super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
         return ItemInteractionResult.SUCCESS;
-
     }
 }

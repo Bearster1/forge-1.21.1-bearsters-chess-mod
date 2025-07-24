@@ -46,7 +46,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> MOVEABLE_SQUARE = registerBlock("moveable_square",
             ()-> new MoveableSquareBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK).noOcclusion()));
 
-
+    public static final RegistryObject<Block> ATTACKABLE_SQUARE = registerBlock("attackable_square",
+            ()-> new AttackableSquareBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK).noOcclusion()));
 
 
 

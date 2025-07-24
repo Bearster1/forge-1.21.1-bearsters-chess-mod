@@ -61,6 +61,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 KingBlock.COLOUR);
 
         simpleBlockWithItem(ModBlocks.MOVEABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/moveable_square")));
+        simpleBlockWithItem(ModBlocks.ATTACKABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/attackable_square")));
         
     }
     

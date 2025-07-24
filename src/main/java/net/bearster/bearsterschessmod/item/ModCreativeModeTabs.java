@@ -28,6 +28,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.QUEEN.get());
                         output.accept(ModBlocks.KING.get());
                         output.accept(ModBlocks.MOVEABLE_SQUARE.get());
+                        output.accept(ModBlocks.ATTACKABLE_SQUARE.get());
 
 
                     }).build());

@@ -29,6 +29,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(ModBlocks.QUEEN.get(), "Queen");
         add(ModBlocks.KING.get(), "King");
         add(ModBlocks.MOVEABLE_SQUARE.get(), "Moveable Square");
+        add(ModBlocks.ATTACKABLE_SQUARE.get(), "Attackable Square");
 
         addCreativeTabType(ModCreativeModeTabs.BEARSTERS_CHESS_MOD_TAB.get(), "Bearster's Chess Mod");
     }

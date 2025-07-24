@@ -26,6 +26,7 @@ public class ModTags {
     public static class Blocks {
 
         public static final TagKey<Block> IS_CHESS_BOARD = createTag("is_chess_board");
+        public static final TagKey<Block> IS_CHESS_PIECE = createTag("is_chess_piece");
 
         private static TagKey<Block> createTag(String name) {
             return BlockTags.create(BearstersChessMod.loc(name));

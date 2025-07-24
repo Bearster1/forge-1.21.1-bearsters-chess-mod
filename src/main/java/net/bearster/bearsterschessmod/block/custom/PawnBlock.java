@@ -2,6 +2,7 @@ package net.bearster.bearsterschessmod.block.custom;
 
 import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
+import net.bearster.bearsterschessmod.block.entity.custom.AttackableSquareBlockEntity;
 import net.bearster.bearsterschessmod.block.entity.custom.MoveableSquareBlockEntity;
 import net.bearster.bearsterschessmod.block.entity.custom.PawnBlockEntity;
 import net.bearster.bearsterschessmod.util.ModTags;
@@ -32,19 +33,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PawnBlock extends RotationalBlock implements EntityBlock {
+public class PawnBlock extends ChessPieceBlock implements EntityBlock {
     public static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 14, 13);
     public static final BooleanProperty COLOUR = BooleanProperty.create("colour");
 
     public PawnBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(COLOUR, true));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(COLOUR);
     }
 
     @Override
@@ -70,14 +64,8 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
         if (!pLevel.isClientSide()) {
-            boolean colour = pState.getValue(COLOUR);
-            if (pStack.is(ModBlocks.WHITE_SQUARE.get().asItem()) && !colour) {
-                pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
-            } else if (pStack.is(ModBlocks.BLACK_SQUARE.get().asItem()) && colour) {
-                pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
-            }
-
             if (pStack.is(Blocks.AIR.asItem())) {
                 boolean firstSquareIsChessBoard = true;
                 BlockPos offsetPos = BlockPos.ZERO;
@@ -219,10 +207,202 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
                         }
                     }
                 }
+
+                if (pState.getValue(FACING) == Direction.NORTH) {
+
+                    offsetPos = pPos.offset(-1,1,-1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                } else if (pState.getValue(FACING) == Direction.SOUTH) {
+                    offsetPos = pPos.offset(1,1,1);
+
+                    BearstersChessMod.LOGGER.info("Hello at:" + offsetPos);
+                    BearstersChessMod.LOGGER.info("I am a:"+pLevel.getBlockState(offsetPos.offset(0,-1,0)));
+                    BearstersChessMod.LOGGER.info("I am facing:"+pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(FACING));
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                } else if (pState.getValue(FACING) == Direction.EAST) {
+
+                    offsetPos = pPos.offset(1,1,-1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                } else if (pState.getValue(FACING) == Direction.WEST) {
+
+                    offsetPos = pPos.offset(-1,1,1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+                }
+
+                BearstersChessMod.LOGGER.info("PLACED FIRST ATTACK");
+
+                if (pState.getValue(FACING) == Direction.NORTH) {
+
+                    offsetPos = pPos.offset(1,1,-1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                } else if (pState.getValue(FACING) == Direction.SOUTH) {
+
+                    offsetPos = pPos.offset(-1,1,1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                } else if (pState.getValue(FACING) == Direction.EAST) {
+
+                    offsetPos = pPos.offset(1,1,1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                } else if (pState.getValue(FACING) == Direction.WEST) {
+
+                    offsetPos = pPos.offset(-1,1,-1);
+
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_PIECE) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                        if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+
+                            pLevel.setBlockAndUpdate(offsetPos, ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
+
+                            BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                            if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
+                                attackableSquareBlockEntity.setPiecePosition(pPos);
+                            }
+
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    }
+
+                }
+
             }
         }
 
         return ItemInteractionResult.SUCCESS;
     }
-
 }
