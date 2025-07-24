@@ -19,6 +19,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MoveableSquareBlock extends Block implements EntityBlock {
     public static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 1, 15);
 
@@ -43,14 +46,37 @@ public class MoveableSquareBlock extends Block implements EntityBlock {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                 BlockPos storedPos = moveableSquareBlockEntity.getPiecePosition();
-                pLevel.setBlock(pPos, pLevel.getBlockState(storedPos), 3);
+                BlockState newBlockstate = pLevel.getBlockState(storedPos);
+
+                BlockEntity typePawn = pLevel.getBlockEntity(storedPos);
+                if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                    List<Integer> xList = pawnBlockEntity.getXList();
+                    List<Integer> yList = pawnBlockEntity.getYList();
+                    List<Integer> zList = pawnBlockEntity.getZList();
+
+                    BearstersChessMod.LOGGER.info("x: "+xList);
+                    BearstersChessMod.LOGGER.info("y: "+yList);
+                    BearstersChessMod.LOGGER.info("z: "+zList);
+
+                    for (int i = 0; i <
+                            (xList.size() + yList.size() + zList.size()) / 3;
+                         i++) {
+                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
+                    }
+
+                    pawnBlockEntity.resetList();
+                }
+
+                pLevel.setBlock(pPos, newBlockstate, 3);
 
                 BlockEntity blockEntity2 = pLevel.getBlockEntity(pPos);
                 if (blockEntity2 instanceof PawnBlockEntity pawnBlockEntity) {
                     pawnBlockEntity.setHasDoubleMoved(true);
                 }
 
+
                 pLevel.setBlockAndUpdate(storedPos, Blocks.AIR.defaultBlockState());
+
             }
 
         }

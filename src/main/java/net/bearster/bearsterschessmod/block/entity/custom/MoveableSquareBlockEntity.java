@@ -1,5 +1,6 @@
 package net.bearster.bearsterschessmod.block.entity.custom;
 
+import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;

@@ -41,7 +41,7 @@ public class ModBlocks {
             ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f)));
 
     public static final RegistryObject<Block> KING = registerBlock("king",
-            ()-> new QueenBlock(BlockBehaviour.Properties.of().strength(1f)));
+            ()-> new KingBlock(BlockBehaviour.Properties.of().strength(1f)));
 
     public static final RegistryObject<Block> MOVEABLE_SQUARE = registerBlock("moveable_square",
             ()-> new MoveableSquareBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK).noOcclusion()));

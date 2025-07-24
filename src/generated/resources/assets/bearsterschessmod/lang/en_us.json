@@ -1,16 +1,12 @@
 {
-  "block.bearsterschessmod.black_bishop": "Black Bishop",
-  "block.bearsterschessmod.black_king": "Black King",
-  "block.bearsterschessmod.black_knight": "Black Knight",
-  "block.bearsterschessmod.black_queen": "Black Queen",
-  "block.bearsterschessmod.black_rook": "Black Rook",
+  "block.bearsterschessmod.bishop": "Bishop",
   "block.bearsterschessmod.black_square": "Black Square",
+  "block.bearsterschessmod.king": "King",
+  "block.bearsterschessmod.knight": "Knight",
   "block.bearsterschessmod.moveable_square": "Moveable Square",
-  "block.bearsterschessmod.white_bishop": "White Bishop",
-  "block.bearsterschessmod.white_king": "White King",
-  "block.bearsterschessmod.white_knight": "White Knight",
-  "block.bearsterschessmod.white_queen": "White Queen",
-  "block.bearsterschessmod.white_rook": "White Rook",
+  "block.bearsterschessmod.pawn": "Pawn",
+  "block.bearsterschessmod.queen": "Queen",
+  "block.bearsterschessmod.rook": "Rook",
   "block.bearsterschessmod.white_square": "White Square",
   "creativetab.bearsters_chess_mod_tab": "Bearster's Chess Mod"
 }

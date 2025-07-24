@@ -70,144 +70,150 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-
-
-
-        BearstersChessMod.LOGGER.info("Used Item On :)");
         if (!pLevel.isClientSide()) {
-            BearstersChessMod.LOGGER.info("This is client side");
             boolean colour = pState.getValue(COLOUR);
             if (pStack.is(ModBlocks.WHITE_SQUARE.get().asItem()) && !colour) {
-                BearstersChessMod.LOGGER.info("Turning black");
                 pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
-                BearstersChessMod.LOGGER.info("Should be black");
             } else if (pStack.is(ModBlocks.BLACK_SQUARE.get().asItem()) && colour) {
-                BearstersChessMod.LOGGER.info("Turning white");
                 pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
-                BearstersChessMod.LOGGER.info("Should be white");
-            }
-        }
-
-        return ItemInteractionResult.SUCCESS;
-
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-
-        if (!pLevel.isClientSide) {
-            boolean firstSquareIsChessBoard = true;
-
-            if (pState.getValue(FACING) == Direction.NORTH) {
-                BlockPos offsetPos = pPos.offset(0,0,-1);
-
-                if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
-
-                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                        moveableSquareBlockEntity.setPiecePosition(pPos);
-                    }
-                } else {
-                    firstSquareIsChessBoard = false;
-                }
-            } else if (pState.getValue(FACING) == Direction.SOUTH) {
-                BlockPos offsetPos = pPos.offset(0,0,1);
-
-                if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
-
-                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                        moveableSquareBlockEntity.setPiecePosition(pPos);
-                    }
-                } else {
-                    firstSquareIsChessBoard = false;
-                }
-            } else if (pState.getValue(FACING) == Direction.EAST) {
-                BlockPos offsetPos = pPos.offset(1,0,0);
-
-                if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
-
-                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                        moveableSquareBlockEntity.setPiecePosition(pPos);
-                    }
-                } else {
-                    firstSquareIsChessBoard = false;
-                }
-            } else if (pState.getValue(FACING) == Direction.WEST) {
-                BlockPos offsetPos = pPos.offset(-1,0,0);
-
-                if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
-
-                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                        moveableSquareBlockEntity.setPiecePosition(pPos);
-                    }
-                } else {
-                    firstSquareIsChessBoard = false;
-                }
-
             }
 
-            BlockEntity pawnEntity = pLevel.getBlockEntity(pPos);
-            if (pawnEntity instanceof PawnBlockEntity pawnBlockEntity) {
+            if (pStack.is(Blocks.AIR.asItem())) {
+                boolean firstSquareIsChessBoard = true;
+                BlockPos offsetPos = BlockPos.ZERO;
 
-                if (!pawnBlockEntity.getHasDoubleMoved()) {
-                    if (firstSquareIsChessBoard) {
-                        if (pState.getValue(FACING) == Direction.NORTH) {
-                            BlockPos offsetPos = pPos.offset(0, 0, -2);
+                if (pState.getValue(FACING) == Direction.NORTH) {
+                    offsetPos = pPos.offset(0,0,-1);
 
-                            if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                                    pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                                BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                                if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                                    moveableSquareBlockEntity.setPiecePosition(pPos);
-                                }
+                        pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                        BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                        if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                            moveableSquareBlockEntity.setPiecePosition(pPos);
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
                             }
-                        } else if (pState.getValue(FACING) == Direction.SOUTH) {
-                            BlockPos offsetPos = pPos.offset(0, 0, 2);
+                        }
+                    } else {
+                        firstSquareIsChessBoard = false;
+                    }
+                } else if (pState.getValue(FACING) == Direction.SOUTH) {
+                    offsetPos = pPos.offset(0,0,1);
 
-                            if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                                    pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                                BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                                if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                                    moveableSquareBlockEntity.setPiecePosition(pPos);
-                                }
+                        pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                        BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                        if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                            moveableSquareBlockEntity.setPiecePosition(pPos);
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
                             }
-                        } else if (pState.getValue(FACING) == Direction.EAST) {
-                            BlockPos offsetPos = pPos.offset(2, 0, 0);
+                        }
+                    } else {
+                        firstSquareIsChessBoard = false;
+                    }
+                } else if (pState.getValue(FACING) == Direction.EAST) {
+                    offsetPos = pPos.offset(1,0,0);
 
-                            if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                                    pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                                BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                                if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                                    moveableSquareBlockEntity.setPiecePosition(pPos);
-                                }
+                        pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                        BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                        if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                            moveableSquareBlockEntity.setPiecePosition(pPos);
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
                             }
-                        } else if (pState.getValue(FACING) == Direction.WEST) {
-                            BlockPos offsetPos = pPos.offset(-2, 0, 0);
+                        }
+                    } else {
+                        firstSquareIsChessBoard = false;
+                    }
+                } else if (pState.getValue(FACING) == Direction.WEST) {
+                    offsetPos = pPos.offset(-1,0,0);
 
-                            if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
-                                    pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+                    if (pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                            pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
 
-                                pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
-                                BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
-                                if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
-                                    moveableSquareBlockEntity.setPiecePosition(pPos);
+                        pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                        BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                        if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                            moveableSquareBlockEntity.setPiecePosition(pPos);
+                            BlockEntity typePawn = pLevel.getBlockEntity(pPos);
+                            if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
+                                pawnBlockEntity.addToList(offsetPos);
+                            }
+                        }
+                    } else {
+                        firstSquareIsChessBoard = false;
+                    }
+
+                }
+
+                BlockEntity pawnEntity = pLevel.getBlockEntity(pPos);
+                if (pawnEntity instanceof PawnBlockEntity pawnBlockEntity) {
+
+                    if (!pawnBlockEntity.getHasDoubleMoved()) {
+                        if (firstSquareIsChessBoard) {
+                            if (pState.getValue(FACING) == Direction.NORTH) {
+                                offsetPos = pPos.offset(0, 0, -2);
+
+                                if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                                        moveableSquareBlockEntity.setPiecePosition(pPos);
+                                        pawnBlockEntity.addToList(offsetPos);
+                                    }
+
+                                }
+                            } else if (pState.getValue(FACING) == Direction.SOUTH) {
+                                offsetPos = pPos.offset(0, 0, 2);
+
+                                if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                                        moveableSquareBlockEntity.setPiecePosition(pPos);
+                                        pawnBlockEntity.addToList(offsetPos);
+                                    }
+                                }
+                            } else if (pState.getValue(FACING) == Direction.EAST) {
+                                offsetPos = pPos.offset(2, 0, 0);
+
+                                if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                                        moveableSquareBlockEntity.setPiecePosition(pPos);
+                                        pawnBlockEntity.addToList(offsetPos);
+                                    }
+                                }
+                            } else if (pState.getValue(FACING) == Direction.WEST) {
+                                offsetPos = pPos.offset(-2, 0, 0);
+
+                                if (pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD) &
+                                        pLevel.getBlockState(offsetPos).is(Blocks.AIR)) {
+
+                                    pLevel.setBlockAndUpdate(offsetPos, ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                                    BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                                    if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                                        moveableSquareBlockEntity.setPiecePosition(pPos);
+                                        pawnBlockEntity.addToList(offsetPos);
+                                    }
                                 }
                             }
                         }
@@ -216,7 +222,7 @@ public class PawnBlock extends RotationalBlock implements EntityBlock {
             }
         }
 
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
 }
