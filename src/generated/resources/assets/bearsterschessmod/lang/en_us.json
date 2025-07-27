@@ -9,5 +9,7 @@
   "block.bearsterschessmod.queen": "Queen",
   "block.bearsterschessmod.rook": "Rook",
   "block.bearsterschessmod.white_square": "White Square",
-  "creativetab.bearsters_chess_mod_tab": "Bearster's Chess Mod"
+  "creativetab.bearsters_chess_mod_tab": "Bearster's Chess Mod",
+  "message.bearsterschessmod.win_game_black": "Black has won the game!",
+  "message.bearsterschessmod.win_game_white": "White has won the game!"
 }
