@@ -30,8 +30,17 @@ public class ModLanguageProvider extends LanguageProvider {
         add(ModBlocks.KING.get(), "King");
         add(ModBlocks.MOVEABLE_SQUARE.get(), "Moveable Square");
         add(ModBlocks.ATTACKABLE_SQUARE.get(), "Attackable Square");
+        add(ModBlocks.OPTION.get(), "Option Block");
+
         add("message.bearsterschessmod.win_game_white","White has won the game!");
         add("message.bearsterschessmod.win_game_black","Black has won the game!");
+
+        add("message.bearsterschessmod.forced_turn_taking_on","Forced Turn Taking Has Been Turned On");
+        add("message.bearsterschessmod.forced_turn_taking_off","Forced Turn Taking Has Been Turned Off");
+        add("message.bearsterschessmod.game_started","The Chess Game Has Started, White Goes First");
+
+        add("tooltip.bearsterschessmod.right_click_to_start_game","Right Click This Block To Begin The Chess Game");
+        add("tooltip.bearsterschessmod.shift_right_click_to_toggle_color_boundary","Shift Right Click This Block To Toggle Taking Turns");
 
         addCreativeTabType(ModCreativeModeTabs.BEARSTERS_CHESS_MOD_TAB.get(), "Bearster's Chess Mod");
     }

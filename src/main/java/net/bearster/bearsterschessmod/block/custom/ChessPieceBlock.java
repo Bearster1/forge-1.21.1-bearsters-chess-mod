@@ -1,25 +1,27 @@
 package net.bearster.bearsterschessmod.block.custom;
 
+import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
+import net.bearster.bearsterschessmod.block.entity.custom.ChessPieceBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
-public class ChessPieceBlock extends RotationalBlock {
+import java.util.List;
+
+public class ChessPieceBlock extends RotationalBlock implements EntityBlock {
     public static final BooleanProperty COLOUR = BooleanProperty.create("colour");
 
     public ChessPieceBlock(Properties properties) {
@@ -34,6 +36,11 @@ public class ChessPieceBlock extends RotationalBlock {
     }
 
     @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new ChessPieceBlockEntity(pPos, pState);
+    }
+
+    @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
 
         if (!pLevel.isClientSide()) {
@@ -43,10 +50,40 @@ public class ChessPieceBlock extends RotationalBlock {
             } else if (pStack.is(ModBlocks.BLACK_SQUARE.get().asItem()) && colour) {
                 pLevel.setBlock(pPos, pState.setValue(COLOUR, !colour), 3);
             }
+            BearstersChessMod.LOGGER.info("Hello I'M NOT REAL");
+            if (pStack.is(Blocks.AIR.asItem())) {
+                BlockEntity blocke = pLevel.getBlockEntity(pPos);
+                if (blocke instanceof ChessPieceBlockEntity ChessPieceBE) {
+                    if (!ChessPieceBE.getYList().isEmpty() && !ChessPieceBE.getXList().isEmpty() && !ChessPieceBE.getZList().isEmpty()) {
+                        List<Integer> xList = ChessPieceBE.getXList();
+                        List<Integer> yList = ChessPieceBE.getYList();
+                        List<Integer> zList = ChessPieceBE.getZList();
+
+                        BearstersChessMod.LOGGER.info("x: "+xList);
+                        BearstersChessMod.LOGGER.info("y: "+yList);
+                        BearstersChessMod.LOGGER.info("z: "+zList);
+
+                        for (int i = 0; i <
+                                (xList.size() + yList.size() + zList.size()) / 3;
+                             i++) {
+                            pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
+                        }
+
+                        ChessPieceBE.resetList();
+
+                        xList = ChessPieceBE.getXList();
+                        yList = ChessPieceBE.getYList();
+                        zList = ChessPieceBE.getZList();
+
+                        BearstersChessMod.LOGGER.info("x: "+xList);
+                        BearstersChessMod.LOGGER.info("y: "+yList);
+                        BearstersChessMod.LOGGER.info("z: "+zList);
+                    }
+                }
+            }
         }
 
         return ItemInteractionResult.SUCCESS;
 
     }
-
 }

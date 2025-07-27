@@ -23,6 +23,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.WHITE_SQUARE);
         blockWithItem(ModBlocks.BLACK_SQUARE);
+        blockWithItem(ModBlocks.OPTION);
 
         rotatedBlockWithChessPieceModel(
                 ModBlocks.PAWN.get(),

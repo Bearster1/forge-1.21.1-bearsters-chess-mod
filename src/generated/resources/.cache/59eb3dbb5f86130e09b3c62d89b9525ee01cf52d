@@ -1,8 +1,9 @@
-// 1.21.1	2025-07-23T17:51:06.1857359	Loot Tables
+// 1.21.1	2025-07-27T18:00:59.3901546	Loot Tables
 d33f2a58dae5d444919de424c9baa1caa0af2b88 data/bearsterschessmod/loot_table/blocks/bishop.json
 a63a8934adf85219da5e5002f449b56d4807e6ee data/bearsterschessmod/loot_table/blocks/black_square.json
 a32da0b7552a310d5f5702f504805cac66882031 data/bearsterschessmod/loot_table/blocks/king.json
 d52a1051c35dd8139b2e97e7d63e4ece05809d6f data/bearsterschessmod/loot_table/blocks/knight.json
+cd08df7d4168a4cb6c4de69bb32486cd75f0ff21 data/bearsterschessmod/loot_table/blocks/option.json
 54c5e671ab4ff7776deccb2b7aae6d14ab81ffc6 data/bearsterschessmod/loot_table/blocks/pawn.json
 c8b1cdb58fd360f1042737bd8435ced5887cdb85 data/bearsterschessmod/loot_table/blocks/queen.json
 3c437a6f5d90c254d12276a06944590510ac7fce data/bearsterschessmod/loot_table/blocks/rook.json

@@ -9,6 +9,7 @@
     "bearsterschessmod:queen",
     "bearsterschessmod:king",
     "bearsterschessmod:moveable_square",
-    "bearsterschessmod:attackable_square"
+    "bearsterschessmod:attackable_square",
+    "bearsterschessmod:option"
   ]
 }

@@ -34,7 +34,8 @@ public class ModItemTagGenerator extends ItemTagsProvider {
                 .add(ModBlocks.QUEEN.get().asItem())
                 .add(ModBlocks.KING.get().asItem())
                 .add(ModBlocks.MOVEABLE_SQUARE.get().asItem())
-                .add(ModBlocks.ATTACKABLE_SQUARE.get().asItem());
+                .add(ModBlocks.ATTACKABLE_SQUARE.get().asItem())
+                .add(ModBlocks.OPTION.get().asItem());
 
     }
 }

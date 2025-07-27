@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -45,143 +46,88 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
         if (!pLevel.isClientSide) {
+            BearstersChessMod.LOGGER.info("1");
+
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
                 BlockPos storedPos = attackableSquareBlockEntity.getPiecePosition();
                 BlockState newBlockstate = pLevel.getBlockState(storedPos);
 
                 BlockEntity takeKing = pLevel.getBlockEntity(pPos.offset(0,-1,0));
-                if (takeKing instanceof KingBlockEntity kingBlockEntity) {
-                    if (newBlockstate.getValue(ChessPieceBlock.COLOUR)) {
-                        pPlayer.sendSystemMessage(Component.translatable("message.bearsterschessmod.win_game_white"));
+                if (takeKing instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                    if (pLevel.getBlockState(pPos.offset(0,-1,0)).is(ModBlocks.KING.get())) {
+                        if (newBlockstate.getValue(ChessPieceBlock.COLOUR)) {
+                            pPlayer.sendSystemMessage(Component.translatable("message.bearsterschessmod.win_game_white"));
+                        } else {
+                            pPlayer.sendSystemMessage(Component.translatable("message.bearsterschessmod.win_game_black"));
+                        }
+                    }
+                }
+
+                BearstersChessMod.LOGGER.info("2");
+
+                BlockEntity typeChessPiece = pLevel.getBlockEntity(storedPos);
+                if (typeChessPiece instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                    List<Integer> xList = chessPieceBlockEntity.getXList();
+                    List<Integer> yList = chessPieceBlockEntity.getYList();
+                    List<Integer> zList = chessPieceBlockEntity.getZList();
+
+                    BearstersChessMod.LOGGER.info("x: "+xList);
+                    BearstersChessMod.LOGGER.info("y: "+yList);
+                    BearstersChessMod.LOGGER.info("z: "+zList);
+
+                    for (int i = 0; i <
+                            (xList.size() + yList.size() + zList.size()) / 3;
+                         i++) {
+                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
+                    }
+
+                    chessPieceBlockEntity.resetList();
+                }
+
+                BearstersChessMod.LOGGER.info("3");
+
+                if (attackableSquareBlockEntity.isEnPassant()) {
+                    pLevel.setBlock(pPos.offset(0, -1, 0), Blocks.AIR.defaultBlockState(), 3);
+                    pLevel.setBlock(attackableSquareBlockEntity.getEnPassantPosition(), newBlockstate,3);
+                } else {
+                    pLevel.setBlock(pPos.offset(0, -1, 0), newBlockstate, 3);
+                }
+
+                BearstersChessMod.LOGGER.info("4");
+
+
+                BlockEntity blockEntity2 = pLevel.getBlockEntity(pPos.offset(0, -1, 0));
+                if (attackableSquareBlockEntity.isEnPassant()) {
+                    blockEntity2 = pLevel.getBlockEntity(attackableSquareBlockEntity.getEnPassantPosition());
+                }
+
+                if (blockEntity2 instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                    BearstersChessMod.LOGGER.info("4.5");
+
+                    if (attackableSquareBlockEntity.isEnPassant()) {
+                        chessPieceBlockEntity.setLastPieceMoved(pLevel.getBlockState(attackableSquareBlockEntity.getEnPassantPosition()).getBlock().toString());
+                        chessPieceBlockEntity.setLastPieceMovedColour(pLevel.getBlockState(attackableSquareBlockEntity.getEnPassantPosition()).getValue(ChessPieceBlock.COLOUR));
+                        if (chessPieceBlockEntity.getLastPieceMovedWasDouble() && attackableSquareBlockEntity.isEnPassant()) {
+                            chessPieceBlockEntity.setLastPieceMovedWasDouble(false);
+                        }
                     } else {
-                        pPlayer.sendSystemMessage(Component.translatable("message.bearsterschessmod.win_game_black"));
-                    }
-                }
-
-                BlockEntity typePawn = pLevel.getBlockEntity(storedPos);
-                if (typePawn instanceof PawnBlockEntity pawnBlockEntity) {
-                    List<Integer> xList = pawnBlockEntity.getXList();
-                    List<Integer> yList = pawnBlockEntity.getYList();
-                    List<Integer> zList = pawnBlockEntity.getZList();
-
-                    BearstersChessMod.LOGGER.info("x: "+xList);
-                    BearstersChessMod.LOGGER.info("y: "+yList);
-                    BearstersChessMod.LOGGER.info("z: "+zList);
-
-                    for (int i = 0; i <
-                            (xList.size() + yList.size() + zList.size()) / 3;
-                         i++) {
-                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
+                        chessPieceBlockEntity.setLastPieceMoved(pLevel.getBlockState(pPos.offset(0, -1, 0)).getBlock().toString());
+                        chessPieceBlockEntity.setLastPieceMovedColour(pLevel.getBlockState(pPos.offset(0, -1, 0)).getValue(ChessPieceBlock.COLOUR));
+                        if (chessPieceBlockEntity.getLastPieceMovedWasDouble() && attackableSquareBlockEntity.isEnPassant()) {
+                            chessPieceBlockEntity.setLastPieceMovedWasDouble(false);
+                        }
                     }
 
-                    pawnBlockEntity.resetList();
-                }
+                    BearstersChessMod.LOGGER.info("5");
 
-                BlockEntity typeBishop = pLevel.getBlockEntity(storedPos);
-                if (typeBishop instanceof BishopBlockEntity bishopBlockEntity) {
-                    List<Integer> xList = bishopBlockEntity.getXList();
-                    List<Integer> yList = bishopBlockEntity.getYList();
-                    List<Integer> zList = bishopBlockEntity.getZList();
+                    BlockState blockState = pLevel.getBlockState(pPos.offset(0,-1,0));
+                    if (blockState.is(ModBlocks.PAWN.get())) {
+                        chessPieceBlockEntity.setPawnHasDoubleMoved(true);
 
-                    BearstersChessMod.LOGGER.info("x: "+xList);
-                    BearstersChessMod.LOGGER.info("y: "+yList);
-                    BearstersChessMod.LOGGER.info("z: "+zList);
+                        BearstersChessMod.LOGGER.info("6");
 
-                    for (int i = 0; i <
-                            (xList.size() + yList.size() + zList.size()) / 3;
-                         i++) {
-                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
-                    }
-
-                    bishopBlockEntity.resetList();
-                }
-
-                BlockEntity typeQueen = pLevel.getBlockEntity(storedPos);
-                if (typeQueen instanceof QueenBlockEntity queenBlockEntity) {
-                    List<Integer> xList = queenBlockEntity.getXList();
-                    List<Integer> yList = queenBlockEntity.getYList();
-                    List<Integer> zList = queenBlockEntity.getZList();
-
-                    BearstersChessMod.LOGGER.info("x: "+xList);
-                    BearstersChessMod.LOGGER.info("y: "+yList);
-                    BearstersChessMod.LOGGER.info("z: "+zList);
-
-                    for (int i = 0; i <
-                            (xList.size() + yList.size() + zList.size()) / 3;
-                         i++) {
-                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
-                    }
-
-                    queenBlockEntity.resetList();
-                }
-
-                BlockEntity typeRook = pLevel.getBlockEntity(storedPos);
-                if (typeRook instanceof RookBlockEntity rookBlockEntity) {
-                    List<Integer> xList = rookBlockEntity.getXList();
-                    List<Integer> yList = rookBlockEntity.getYList();
-                    List<Integer> zList = rookBlockEntity.getZList();
-
-                    BearstersChessMod.LOGGER.info("x: "+xList);
-                    BearstersChessMod.LOGGER.info("y: "+yList);
-                    BearstersChessMod.LOGGER.info("z: "+zList);
-
-                    for (int i = 0; i <
-                            (xList.size() + yList.size() + zList.size()) / 3;
-                         i++) {
-                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
-                    }
-
-                    rookBlockEntity.resetList();
-                }
-
-                BlockEntity typeKnight = pLevel.getBlockEntity(storedPos);
-                if (typeKnight instanceof KnightBlockEntity knightBlockEntity) {
-                    List<Integer> xList = knightBlockEntity.getXList();
-                    List<Integer> yList = knightBlockEntity.getYList();
-                    List<Integer> zList = knightBlockEntity.getZList();
-
-                    BearstersChessMod.LOGGER.info("x: "+xList);
-                    BearstersChessMod.LOGGER.info("y: "+yList);
-                    BearstersChessMod.LOGGER.info("z: "+zList);
-
-                    for (int i = 0; i <
-                            (xList.size() + yList.size() + zList.size()) / 3;
-                         i++) {
-                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
-                    }
-
-                    knightBlockEntity.resetList();
-                }
-
-                BlockEntity typeKing = pLevel.getBlockEntity(storedPos);
-                if (typeKing instanceof KingBlockEntity kingBlockEntity) {
-                    List<Integer> xList = kingBlockEntity.getXList();
-                    List<Integer> yList = kingBlockEntity.getYList();
-                    List<Integer> zList = kingBlockEntity.getZList();
-
-                    BearstersChessMod.LOGGER.info("x: "+xList);
-                    BearstersChessMod.LOGGER.info("y: "+yList);
-                    BearstersChessMod.LOGGER.info("z: "+zList);
-
-                    for (int i = 0; i <
-                            (xList.size() + yList.size() + zList.size()) / 3;
-                         i++) {
-                        pLevel.setBlockAndUpdate(new BlockPos(xList.get(i),yList.get(i),zList.get(i)), Blocks.AIR.defaultBlockState());
-                    }
-
-                    kingBlockEntity.resetList();
-                }
-
-                pLevel.setBlock(pPos.offset(0,-1,0), newBlockstate, 3);
-
-                BlockEntity blockEntity2 = pLevel.getBlockEntity(pPos.offset(0,-1,0));
-                if (blockEntity2 instanceof PawnBlockEntity pawnBlockEntity) {
-                    pawnBlockEntity.setHasDoubleMoved(true);
-
-                    BlockState pawnBlockState = pLevel.getBlockState(pPos.offset(0,-1,0));
-                    if (pawnBlockState.is(ModBlocks.PAWN.get())) {
-                        Direction facing = pawnBlockState.getValue(PawnBlock.FACING);
+                        Direction facing = blockState.getValue(PawnBlock.FACING);
 
                         if (!pLevel.getBlockState(pPos.offset(0,-2,0).relative(facing)).is(ModTags.Blocks.IS_CHESS_BOARD)) {
                             pLevel.setBlock(pPos.offset(0,-1,0),
@@ -191,11 +137,19 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
                                     ,3);
                         }
                     }
+
+                    BearstersChessMod.LOGGER.info("7");
+
+                    chessPieceBlockEntity.setWhosTurnIsIt(!chessPieceBlockEntity.getWhosTurnIsIt());
                 }
+
+                BearstersChessMod.LOGGER.info("8");
 
 
                 pLevel.setBlockAndUpdate(storedPos, Blocks.AIR.defaultBlockState());
                 pLevel.setBlockAndUpdate(pPos, Blocks.AIR.defaultBlockState());
+
+                BearstersChessMod.LOGGER.info("9");
 
             }
 

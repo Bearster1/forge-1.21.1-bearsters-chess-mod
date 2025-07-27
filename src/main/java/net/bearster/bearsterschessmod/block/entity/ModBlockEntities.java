@@ -21,29 +21,12 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("attackable_square_be", () -> BlockEntityType.Builder.of(
                     AttackableSquareBlockEntity::new, ModBlocks.ATTACKABLE_SQUARE.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<PawnBlockEntity>> PAWN_BE =
-            BLOCK_ENTITIES.register("pawn_be", () -> BlockEntityType.Builder.of(
-                    PawnBlockEntity::new, ModBlocks.PAWN.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<BishopBlockEntity>> BISHOP_BE =
-            BLOCK_ENTITIES.register("bishop_be", () -> BlockEntityType.Builder.of(
-                    BishopBlockEntity::new, ModBlocks.BISHOP.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<QueenBlockEntity>> QUEEN_BE =
-            BLOCK_ENTITIES.register("queen_be", () -> BlockEntityType.Builder.of(
-                    QueenBlockEntity::new, ModBlocks.QUEEN.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<RookBlockEntity>> ROOK_BE =
-            BLOCK_ENTITIES.register("rook_be", () -> BlockEntityType.Builder.of(
-                    RookBlockEntity::new, ModBlocks.ROOK.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<KnightBlockEntity>> KNIGHT_BE =
-            BLOCK_ENTITIES.register("knight_be", () -> BlockEntityType.Builder.of(
-                    KnightBlockEntity::new, ModBlocks.KNIGHT.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<KingBlockEntity>> KING_BE =
-            BLOCK_ENTITIES.register("king_be", () -> BlockEntityType.Builder.of(
-                    KingBlockEntity::new, ModBlocks.KING.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ChessPieceBlockEntity>> CHESS_PIECE_BE =
+            BLOCK_ENTITIES.register("chess_piece_be", () -> BlockEntityType.Builder.of(
+                    ChessPieceBlockEntity::new,
+                    ModBlocks.PAWN.get(), ModBlocks.KNIGHT.get(), ModBlocks.BISHOP.get(),
+                    ModBlocks.ROOK.get(), ModBlocks.QUEEN.get(), ModBlocks.KING.get(), ModBlocks.OPTION.get()
+            ).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

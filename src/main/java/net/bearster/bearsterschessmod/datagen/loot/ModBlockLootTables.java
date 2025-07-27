@@ -24,6 +24,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.BISHOP.get());
         dropSelf(ModBlocks.QUEEN.get());
         dropSelf(ModBlocks.KING.get());
+        dropSelf(ModBlocks.OPTION.get());
     }
 
     @Override

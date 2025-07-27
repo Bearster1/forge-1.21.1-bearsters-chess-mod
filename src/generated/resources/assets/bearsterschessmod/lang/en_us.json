@@ -5,11 +5,17 @@
   "block.bearsterschessmod.king": "King",
   "block.bearsterschessmod.knight": "Knight",
   "block.bearsterschessmod.moveable_square": "Moveable Square",
+  "block.bearsterschessmod.option": "Option Block",
   "block.bearsterschessmod.pawn": "Pawn",
   "block.bearsterschessmod.queen": "Queen",
   "block.bearsterschessmod.rook": "Rook",
   "block.bearsterschessmod.white_square": "White Square",
   "creativetab.bearsters_chess_mod_tab": "Bearster's Chess Mod",
+  "message.bearsterschessmod.forced_turn_taking_off": "Forced Turn Taking Has Been Turned Off",
+  "message.bearsterschessmod.forced_turn_taking_on": "Forced Turn Taking Has Been Turned On",
+  "message.bearsterschessmod.game_started": "The Chess Game Has Started, White Goes First",
   "message.bearsterschessmod.win_game_black": "Black has won the game!",
-  "message.bearsterschessmod.win_game_white": "White has won the game!"
+  "message.bearsterschessmod.win_game_white": "White has won the game!",
+  "tooltip.bearsterschessmod.right_click_to_start_game": "Right Click This Block To Begin The Chess Game",
+  "tooltip.bearsterschessmod.shift_right_click_to_toggle_color_boundary": "Shift Right Click This Block To Toggle Taking Turns"
 }

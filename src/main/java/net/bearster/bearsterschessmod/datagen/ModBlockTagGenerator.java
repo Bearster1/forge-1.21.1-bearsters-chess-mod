@@ -28,7 +28,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.BISHOP.get())
                 .add(ModBlocks.QUEEN.get())
                 .add(ModBlocks.KING.get())
-                .add(ModBlocks.PAWN.get());
+                .add(ModBlocks.PAWN.get())
+                .add(ModBlocks.OPTION.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.WHITE_SQUARE.get())
@@ -38,7 +39,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.ROOK.get())
                 .add(ModBlocks.BISHOP.get())
                 .add(ModBlocks.QUEEN.get())
-                .add(ModBlocks.KING.get());
+                .add(ModBlocks.KING.get())
+                .add(ModBlocks.OPTION.get());
 
         this.tag(ModTags.Blocks.IS_CHESS_BOARD)
                 .add(ModBlocks.WHITE_SQUARE.get())
