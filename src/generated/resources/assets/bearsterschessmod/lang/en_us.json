@@ -11,6 +11,7 @@
   "block.bearsterschessmod.rook": "Rook",
   "block.bearsterschessmod.white_square": "White Square",
   "creativetab.bearsters_chess_mod_tab": "Bearster's Chess Mod",
+  "menu.bearsterschessmod.promotion_menu": "Promotion",
   "message.bearsterschessmod.forced_turn_taking_off": "Forced Turn Taking Has Been Turned Off",
   "message.bearsterschessmod.forced_turn_taking_on": "Forced Turn Taking Has Been Turned On",
   "message.bearsterschessmod.game_started": "The Chess Game Has Started, White Goes First",

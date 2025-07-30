@@ -41,6 +41,7 @@ public class AttackableSquareBlockEntity extends BlockEntity {
 
     public void setEnPassant(boolean enPassant) {
         this.enPassant = enPassant;
+        setChanged();
     }
 
     public boolean isDoubleMovePawn() {
@@ -49,6 +50,7 @@ public class AttackableSquareBlockEntity extends BlockEntity {
 
     public void setDoubleMovePawn(boolean doubleMovePawn) {
         isDoubleMovePawn = doubleMovePawn;
+        setChanged();
     }
 
     @Override

@@ -4,20 +4,27 @@ import net.bearster.bearsterschessmod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChessPieceBlockEntity extends BlockEntity {
     private Boolean pawnHasDoubleMoved = true;
+    private Boolean hasMoved = false;
     private static List<Integer> xList = new ArrayList<>();
     private static List<Integer> yList = new ArrayList<>();
     private static List<Integer> zList = new ArrayList<>();
     private static String lastPieceMoved;
     private static Boolean lastPieceMovedColour;
-    private static Boolean lastPieceMovedWasDouble;
+    private static BlockPos lastDoublePiecePos = BlockPos.ZERO;
     private static Boolean whosTurnIsIt = true;
     private static Boolean forcedTurnTaking = true;
 
@@ -50,12 +57,12 @@ public class ChessPieceBlockEntity extends BlockEntity {
         ChessPieceBlockEntity.lastPieceMovedColour = lastPieceMovedColour;
     }
 
-    public static Boolean getLastPieceMovedWasDouble() {
-        return lastPieceMovedWasDouble;
+    public static BlockPos getLastDoublePiecePos() {
+        return lastDoublePiecePos;
     }
 
-    public static void setLastPieceMovedWasDouble(Boolean lastPieceMovedWasDouble) {
-        ChessPieceBlockEntity.lastPieceMovedWasDouble = lastPieceMovedWasDouble;
+    public static void setLastDoublePiecePos(BlockPos lastDoublePiecePos) {
+        ChessPieceBlockEntity.lastDoublePiecePos = lastDoublePiecePos;
     }
 
     public static Boolean getWhosTurnIsIt() {
@@ -72,6 +79,15 @@ public class ChessPieceBlockEntity extends BlockEntity {
 
     public static void setForcedTurnTaking(Boolean forcedTurnTaking) {
         ChessPieceBlockEntity.forcedTurnTaking = forcedTurnTaking;
+    }
+
+    public Boolean getHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(Boolean hasMoved) {
+        this.hasMoved = hasMoved;
+        setChanged();
     }
 
     public List<Integer> getXList() {
@@ -107,9 +123,12 @@ public class ChessPieceBlockEntity extends BlockEntity {
         pTag.putIntArray("zList",zList);
         pTag.putString("lastPieceMoved",this.lastPieceMoved);
         pTag.putBoolean("lastPieceMovedColour", this.lastPieceMovedColour);
-        pTag.putBoolean("lastPieceMovedWasDouble", this.lastPieceMovedWasDouble);
+        pTag.putInt("lastDoubleMovePosX", lastDoublePiecePos.getX());
+        pTag.putInt("lastDoubleMovePosY", lastDoublePiecePos.getY());
+        pTag.putInt("lastDoubleMovePosZ", lastDoublePiecePos.getZ());
         pTag.putBoolean("whosTurnIsiT", this.whosTurnIsIt);
         pTag.putBoolean("forcedTurnTaking", this.forcedTurnTaking);
+        pTag.putBoolean("hasMoved",this.hasMoved);
     }
 
     @Override
@@ -118,9 +137,10 @@ public class ChessPieceBlockEntity extends BlockEntity {
         this.pawnHasDoubleMoved = pTag.getBoolean("pawnHasDoubleMoved");
         this.lastPieceMoved = pTag.getString("lastPieceMoved");
         this.lastPieceMovedColour = pTag.getBoolean("lastPieceMovedColour");
-        this.lastPieceMovedWasDouble = pTag.getBoolean("lastPieceMovedWasDouble");
+        this.lastDoublePiecePos = new BlockPos(pTag.getInt("lastDoubleMovePosX"), pTag.getInt("lastDoubleMovePosY"), pTag.getInt("lastDoubleMovePosZ"));
         this.whosTurnIsIt = pTag.getBoolean("whosTurnIsiT");
         this.forcedTurnTaking = pTag.getBoolean("forcedTurnTaking");
+        this.hasMoved = pTag.getBoolean("hasMoved");
         for (int i : pTag.getIntArray("xList")) {
             xList.add(i);
         }
@@ -146,5 +166,6 @@ public class ChessPieceBlockEntity extends BlockEntity {
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider holders) {
 
     }
+
 }
 

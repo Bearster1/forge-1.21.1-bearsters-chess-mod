@@ -49,12 +49,11 @@ public class PawnBlock extends ChessPieceBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
-        BearstersChessMod.LOGGER.info("E");
         if (!pLevel.isClientSide()) {
             if (pStack.is(Blocks.AIR.asItem())) {
                 BlockEntity be = pLevel.getBlockEntity(pPos);
                 if (be instanceof ChessPieceBlockEntity cPBE) {
-                    if (cPBE.getWhosTurnIsIt() == pLevel.getBlockState(pPos).getValue(COLOUR) || !cPBE.getForcedTurnTaking()) {
+                    if (ChessPieceBlockEntity.getWhosTurnIsIt() == pLevel.getBlockState(pPos).getValue(COLOUR) || !ChessPieceBlockEntity.getForcedTurnTaking()) {
 
                         boolean firstSquareIsChessBoard = true;
                         BlockPos offsetPos = BlockPos.ZERO;
@@ -157,6 +156,8 @@ public class PawnBlock extends ChessPieceBlock {
 
                         // En passant
 
+                        BearstersChessMod.LOGGER.info("AH 1");
+
                         offsetPos = switch (pState.getValue(FACING)) {
                             case NORTH -> pPos.offset(-1, 0, -1);
                             case SOUTH -> pPos.offset(1, 0, 1);
@@ -168,14 +169,25 @@ public class PawnBlock extends ChessPieceBlock {
                         BlockPos posToTheLeft = pPos.relative(pLevel.getBlockState(pPos)
                                 .getValue(PawnBlock.FACING).getCounterClockWise(), 1);
 
+                        BearstersChessMod.LOGGER.info("2");
+
                         if (pLevel.getBlockState(offsetPos).is(Blocks.AIR) &&
                                 pLevel.getBlockState(posToTheLeft).is(ModBlocks.PAWN.get())) {
+
+                            BearstersChessMod.LOGGER.info("3");
                             if (pLevel.getBlockState(posToTheLeft)
                                     .getValue(COLOUR) == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+                                BearstersChessMod.LOGGER.info("4");
                                 BlockEntity typeChessPiece = pLevel.getBlockEntity(pPos);
                                 if (typeChessPiece instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
-                                    if (chessPieceBlockEntity.getLastPieceMoved().equals(ModBlocks.PAWN.get().toString()) &&
-                                            chessPieceBlockEntity.getLastPieceMovedWasDouble() && chessPieceBlockEntity.getLastPieceMovedColour() == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+                                    BearstersChessMod.LOGGER.info("5");
+
+                                    BearstersChessMod.LOGGER.info("Last piece moved: "+(ChessPieceBlockEntity.getLastDoublePiecePos().equals(posToTheLeft)));
+
+                                    if (ChessPieceBlockEntity.getLastPieceMoved().equals(ModBlocks.PAWN.get().toString()) &&
+                                            ChessPieceBlockEntity.getLastDoublePiecePos().equals(posToTheLeft) &&
+                                            ChessPieceBlockEntity.getLastPieceMovedColour() == !pLevel.getBlockState(pPos).getValue(COLOUR)) {
+                                        BearstersChessMod.LOGGER.info("6");
                                         pLevel.setBlockAndUpdate(posToTheLeft.offset(0, 1, 0), ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
 
                                         BlockEntity blockEntity = pLevel.getBlockEntity(posToTheLeft.offset(0, 1, 0));
@@ -185,7 +197,9 @@ public class PawnBlock extends ChessPieceBlock {
                                             attackableSquareBlockEntity.setEnPassantPosition(offsetPos);
                                         }
 
-                                        chessPieceBlockEntity.addToList(posToTheLeft);
+                                        BearstersChessMod.LOGGER.info("7");
+
+                                        chessPieceBlockEntity.addToList(posToTheLeft.offset(0,1,0));
                                     }
                                 }
                             }
@@ -211,8 +225,8 @@ public class PawnBlock extends ChessPieceBlock {
 
                                 BlockEntity typeChessPiece = pLevel.getBlockEntity(pPos);
                                 if (typeChessPiece instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
-                                    if (chessPieceBlockEntity.getLastPieceMoved().equals(ModBlocks.PAWN.get().toString()) &&
-                                            chessPieceBlockEntity.getLastPieceMovedWasDouble() && chessPieceBlockEntity.getLastPieceMovedColour() == !pLevel.getBlockState(pPos).getValue(COLOUR))
+                                    if (ChessPieceBlockEntity.getLastPieceMoved().equals(ModBlocks.PAWN.get().toString()) &&
+                                            ChessPieceBlockEntity.getLastDoublePiecePos().equals(posToTheRight) && ChessPieceBlockEntity.getLastPieceMovedColour() == !pLevel.getBlockState(pPos).getValue(COLOUR))
 
                                         pLevel.setBlockAndUpdate(posToTheRight.offset(0, 1, 0), ModBlocks.ATTACKABLE_SQUARE.get().defaultBlockState());
 
@@ -223,7 +237,7 @@ public class PawnBlock extends ChessPieceBlock {
                                         attackableSquareBlockEntity.setEnPassantPosition(offsetPos);
                                     }
 
-                                    chessPieceBlockEntity.addToList(posToTheRight);
+                                    chessPieceBlockEntity.addToList(posToTheRight.offset(0,1,0));
                                 }
                             }
                         }

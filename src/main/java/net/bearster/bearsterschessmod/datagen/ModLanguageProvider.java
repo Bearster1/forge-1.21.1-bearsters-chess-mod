@@ -42,6 +42,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.bearsterschessmod.right_click_to_start_game","Right Click This Block To Begin The Chess Game");
         add("tooltip.bearsterschessmod.shift_right_click_to_toggle_color_boundary","Shift Right Click This Block To Toggle Taking Turns");
 
+        add("menu.bearsterschessmod.promotion_menu","Promotion");
+
         addCreativeTabType(ModCreativeModeTabs.BEARSTERS_CHESS_MOD_TAB.get(), "Bearster's Chess Mod");
     }
 

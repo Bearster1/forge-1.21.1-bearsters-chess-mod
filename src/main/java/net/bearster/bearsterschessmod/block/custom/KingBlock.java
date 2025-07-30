@@ -1,5 +1,6 @@
 package net.bearster.bearsterschessmod.block.custom;
 
+import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
 import net.bearster.bearsterschessmod.block.entity.custom.AttackableSquareBlockEntity;
 import net.bearster.bearsterschessmod.block.entity.custom.ChessPieceBlockEntity;
@@ -45,6 +46,91 @@ public class KingBlock extends ChessPieceBlock {
                     if (cPBE.getWhosTurnIsIt() == pLevel.getBlockState(pPos).getValue(COLOUR) || !cPBE.getForcedTurnTaking()) {
 
                         BlockPos offsetPos = BlockPos.ZERO;
+
+                        // Castling
+
+                        BlockState blockState = pLevel.getBlockState(pPos);
+                        if (blockState.is(ModBlocks.KING.get())) {
+                            if (!cPBE.getHasMoved()) {
+                                offsetPos = pPos.relative(blockState.getValue(FACING).getCounterClockWise(), 1);
+
+                                BearstersChessMod.LOGGER.info(pLevel.getBlockState(offsetPos).is(Blocks.AIR)+"PAST SOLVED LEST SEE WHERE THIS IS"+pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD));
+
+                                if (pLevel.getBlockState(offsetPos).is(Blocks.AIR) && pLevel.getBlockState(offsetPos.offset(0,-1,0)).is(ModTags.Blocks.IS_CHESS_BOARD)) {
+                                    offsetPos = offsetPos.relative(blockState.getValue(FACING).getCounterClockWise(), 1);
+                                    BearstersChessMod.LOGGER.info("3");
+
+                                    BearstersChessMod.LOGGER.info(pLevel.getBlockState(offsetPos).toString());
+                                    BearstersChessMod.LOGGER.info("4");
+                                    while (pLevel.getBlockState(offsetPos).is(Blocks.AIR) || pLevel.getBlockState(offsetPos).is(ModBlocks.ROOK.get())) {
+                                        BearstersChessMod.LOGGER.info("5");
+                                        BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                                        if (blockEntity instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                                            BearstersChessMod.LOGGER.info("6");
+                                            if (pLevel.getBlockState(offsetPos).is(ModBlocks.ROOK.get())) {
+                                                if (pLevel.getBlockState(offsetPos).getValue(COLOUR) == pLevel.getBlockState(pPos).getValue(COLOUR)) {
+                                                    if (!chessPieceBlockEntity.getHasMoved()) {
+                                                        BearstersChessMod.LOGGER.info("7");
+                                                        pLevel.setBlockAndUpdate(pPos.relative(blockState.getValue(FACING).getCounterClockWise(), 2), ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                                                        chessPieceBlockEntity.addToList(pPos.relative(blockState.getValue(FACING).getCounterClockWise(), 2));
+                                                        BlockEntity blockEntity1 = pLevel.getBlockEntity(pPos.relative(blockState.getValue(FACING).getCounterClockWise(), 2));
+                                                        if (blockEntity1 instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                                                            moveableSquareBlockEntity.setCastleDirection("false");
+                                                            moveableSquareBlockEntity.setPiecePosition(pPos);
+                                                            BlockEntity blockEntity0 = pLevel.getBlockEntity(pPos);
+                                                            BearstersChessMod.LOGGER.info("8");
+                                                            moveableSquareBlockEntity.setCastlePosition(offsetPos);
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                        offsetPos = offsetPos.relative(blockState.getValue(FACING).getCounterClockWise(), 1);
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                        BlockState blockState0 = pLevel.getBlockState(pPos);
+                        if (blockState0.is(ModBlocks.KING.get())) {
+                            if (!cPBE.getHasMoved()) {
+                                offsetPos = pPos.relative(blockState0.getValue(FACING).getClockWise(), 1);
+
+                                if (pLevel.getBlockState(offsetPos).is(Blocks.AIR) && pLevel.getBlockState(offsetPos.offset(0, -1, 0)).is(ModTags.Blocks.IS_CHESS_BOARD)) {
+                                    offsetPos = offsetPos.relative(blockState0.getValue(FACING).getClockWise(), 1);
+
+                                    BearstersChessMod.LOGGER.info(pLevel.getBlockState(offsetPos).toString());
+                                    while (pLevel.getBlockState(offsetPos).is(Blocks.AIR) || pLevel.getBlockState(offsetPos).is(ModBlocks.ROOK.get())) {
+                                        BlockEntity blockEntity = pLevel.getBlockEntity(offsetPos);
+                                        if (blockEntity instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                                            if (pLevel.getBlockState(offsetPos).is(ModBlocks.ROOK.get())) {
+                                                if (pLevel.getBlockState(offsetPos).getValue(COLOUR) == pLevel.getBlockState(pPos).getValue(COLOUR)) {
+                                                    if (!chessPieceBlockEntity.getHasMoved()) {
+                                                        pLevel.setBlockAndUpdate(pPos.relative(blockState0.getValue(FACING).getClockWise(), 2), ModBlocks.MOVEABLE_SQUARE.get().defaultBlockState());
+                                                        chessPieceBlockEntity.addToList(pPos.relative(blockState0.getValue(FACING).getClockWise(), 2));
+                                                        BlockEntity blockEntity1 = pLevel.getBlockEntity(pPos.relative(blockState0.getValue(FACING).getClockWise(), 2));
+                                                        if (blockEntity1 instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
+                                                            moveableSquareBlockEntity.setCastleDirection("true");
+                                                            moveableSquareBlockEntity.setPiecePosition(pPos);
+                                                            BlockEntity blockEntity0 = pLevel.getBlockEntity(pPos);
+                                                            moveableSquareBlockEntity.setCastlePosition(offsetPos);
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                        offsetPos = offsetPos.relative(blockState0.getValue(FACING).getClockWise(), 1);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        // Normal Movement
 
                         for (int i = 0; i < 8; i++) {
 

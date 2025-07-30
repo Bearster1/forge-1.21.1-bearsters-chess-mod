@@ -3,9 +3,12 @@ package net.bearster.bearsterschessmod.block.custom;
 import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
 import net.bearster.bearsterschessmod.block.entity.custom.*;
+import net.bearster.bearsterschessmod.screen.custom.PromotionScreen;
 import net.bearster.bearsterschessmod.util.ModTags;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -14,14 +17,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MoveableSquareBlock extends Block implements EntityBlock {
@@ -44,11 +45,12 @@ public class MoveableSquareBlock extends Block implements EntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide) {
+        if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof MoveableSquareBlockEntity moveableSquareBlockEntity) {
                 BlockPos storedPos = moveableSquareBlockEntity.getPiecePosition();
                 BlockState newBlockstate = pLevel.getBlockState(storedPos);
+                BlockState castleBlockstate = pLevel.getBlockState(moveableSquareBlockEntity.getCastlePosition());
 
                 BlockEntity typeChessPiece = pLevel.getBlockEntity(storedPos);
                 if (typeChessPiece instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
@@ -69,19 +71,34 @@ public class MoveableSquareBlock extends Block implements EntityBlock {
                     chessPieceBlockEntity.resetList();
                 }
 
+                BlockEntity blockEntity1 = pLevel.getBlockEntity(storedPos);
+                if (blockEntity1 instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                    if (pLevel.getBlockState(storedPos).is(ModBlocks.KING.get())) {
+                        if (moveableSquareBlockEntity.getCastlePosition() != null && moveableSquareBlockEntity.getCastleDirection() != null) {
+                            if (moveableSquareBlockEntity.getCastleDirection().equals("true")) {
+                                pLevel.setBlock(pPos.relative(pLevel.getBlockState(storedPos).getValue(ChessPieceBlock.FACING).getCounterClockWise()), castleBlockstate, 3);
+                            } else if (moveableSquareBlockEntity.getCastleDirection().equals("false")){
+                                pLevel.setBlock(pPos.relative(pLevel.getBlockState(storedPos).getValue(ChessPieceBlock.FACING).getClockWise()), castleBlockstate, 3);
+                            }
+                            pLevel.setBlock(moveableSquareBlockEntity.getCastlePosition(), Blocks.AIR.defaultBlockState(), 3);
+                        }
+                    }
+                }
+
                 pLevel.setBlock(pPos, newBlockstate, 3);
 
                 BlockEntity blockEntity2 = pLevel.getBlockEntity(pPos);
                 if (blockEntity2 instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
+                    chessPieceBlockEntity.setHasMoved(true);
                     chessPieceBlockEntity.setLastPieceMoved(pLevel.getBlockState(pPos).getBlock().toString());
                     chessPieceBlockEntity.setLastPieceMovedColour(pLevel.getBlockState(pPos).getValue(ChessPieceBlock.COLOUR));
 
                     BlockState blockState = pLevel.getBlockState(pPos);
                     if (blockState.is(ModBlocks.PAWN.get())) {
                         if (moveableSquareBlockEntity.getDoubleMovedWithPawnLast()) {
-                            chessPieceBlockEntity.setLastPieceMovedWasDouble(true);
+                            chessPieceBlockEntity.setLastDoublePiecePos(pPos);
                         } else {
-                            chessPieceBlockEntity.setLastPieceMovedWasDouble(false);
+                            chessPieceBlockEntity.setLastDoublePiecePos(BlockPos.ZERO);
                         }
 
                         chessPieceBlockEntity.setPawnHasDoubleMoved(true);
@@ -94,6 +111,7 @@ public class MoveableSquareBlock extends Block implements EntityBlock {
                                             .setValue(QueenBlock.FACING,newBlockstate.getValue(PawnBlock.FACING))
                                     ,3);
                         }
+
                     }
 
                     chessPieceBlockEntity.setWhosTurnIsIt(!chessPieceBlockEntity.getWhosTurnIsIt());

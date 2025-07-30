@@ -9,7 +9,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.component.FireworkExplosion;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -103,19 +101,19 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
                 }
 
                 if (blockEntity2 instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
-                    BearstersChessMod.LOGGER.info("4.5");
+                    chessPieceBlockEntity.setHasMoved(true);
 
                     if (attackableSquareBlockEntity.isEnPassant()) {
                         chessPieceBlockEntity.setLastPieceMoved(pLevel.getBlockState(attackableSquareBlockEntity.getEnPassantPosition()).getBlock().toString());
                         chessPieceBlockEntity.setLastPieceMovedColour(pLevel.getBlockState(attackableSquareBlockEntity.getEnPassantPosition()).getValue(ChessPieceBlock.COLOUR));
-                        if (chessPieceBlockEntity.getLastPieceMovedWasDouble() && attackableSquareBlockEntity.isEnPassant()) {
-                            chessPieceBlockEntity.setLastPieceMovedWasDouble(false);
+                        if (chessPieceBlockEntity.getLastDoublePiecePos() == pPos && attackableSquareBlockEntity.isEnPassant()) {
+                            chessPieceBlockEntity.setLastDoublePiecePos(BlockPos.ZERO);
                         }
                     } else {
                         chessPieceBlockEntity.setLastPieceMoved(pLevel.getBlockState(pPos.offset(0, -1, 0)).getBlock().toString());
                         chessPieceBlockEntity.setLastPieceMovedColour(pLevel.getBlockState(pPos.offset(0, -1, 0)).getValue(ChessPieceBlock.COLOUR));
-                        if (chessPieceBlockEntity.getLastPieceMovedWasDouble() && attackableSquareBlockEntity.isEnPassant()) {
-                            chessPieceBlockEntity.setLastPieceMovedWasDouble(false);
+                        if (chessPieceBlockEntity.getLastDoublePiecePos() == pPos && attackableSquareBlockEntity.isEnPassant()) {
+                            chessPieceBlockEntity.setLastDoublePiecePos(BlockPos.ZERO);
                         }
                     }
 
