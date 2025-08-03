@@ -23,6 +23,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static net.bearster.bearsterschessmod.block.custom.ChessPieceBlock.COLOUR;
+import static net.bearster.bearsterschessmod.block.custom.RotationalBlock.FACING;
+
 public class AttackableSquareBlock extends Block implements EntityBlock {
     public static final VoxelShape SHAPE = Block.box(4, 4, 4, 12, 12, 12);
 
@@ -44,12 +47,27 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
         if (!pLevel.isClientSide) {
-            BearstersChessMod.LOGGER.info("1");
+
+            BlockState promotionBlock = pLevel.getBlockState(pPos);
+            BlockEntity promotionBE = pLevel.getBlockEntity(pPos);
+
 
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof AttackableSquareBlockEntity attackableSquareBlockEntity) {
                 BlockPos storedPos = attackableSquareBlockEntity.getPiecePosition();
                 BlockState newBlockstate = pLevel.getBlockState(storedPos);
+
+                if (newBlockstate.is(ModBlocks.PAWN.get())) {
+
+                    Direction facing = newBlockstate.getValue(PawnBlock.FACING);
+
+                    if (pLevel.getBlockState(pPos.relative(facing).offset(0,-1,0)).is(ModBlocks.PROMOTION_BLOCK.get())) {
+                        promotionBlock = pLevel.getBlockState(pPos.relative(facing).offset(0,-1,0));
+                        promotionBE = pLevel.getBlockEntity(pPos.relative(facing).offset(0,-1,0));
+
+                        BearstersChessMod.LOGGER.info("OK TESTING "+promotionBlock+" "+promotionBE);
+                    }
+                }
 
                 BlockEntity takeKing = pLevel.getBlockEntity(pPos.offset(0,-1,0));
                 if (takeKing instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
@@ -62,7 +80,6 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
                     }
                 }
 
-                BearstersChessMod.LOGGER.info("2");
 
                 BlockEntity typeChessPiece = pLevel.getBlockEntity(storedPos);
                 if (typeChessPiece instanceof ChessPieceBlockEntity chessPieceBlockEntity) {
@@ -83,7 +100,6 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
                     chessPieceBlockEntity.resetList();
                 }
 
-                BearstersChessMod.LOGGER.info("3");
 
                 if (attackableSquareBlockEntity.isEnPassant()) {
                     pLevel.setBlock(pPos.offset(0, -1, 0), Blocks.AIR.defaultBlockState(), 3);
@@ -92,7 +108,6 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
                     pLevel.setBlock(pPos.offset(0, -1, 0), newBlockstate, 3);
                 }
 
-                BearstersChessMod.LOGGER.info("4");
 
 
                 BlockEntity blockEntity2 = pLevel.getBlockEntity(pPos.offset(0, -1, 0));
@@ -117,37 +132,59 @@ public class AttackableSquareBlock extends Block implements EntityBlock {
                         }
                     }
 
-                    BearstersChessMod.LOGGER.info("5");
 
                     BlockState blockState = pLevel.getBlockState(pPos.offset(0,-1,0));
                     if (blockState.is(ModBlocks.PAWN.get())) {
                         chessPieceBlockEntity.setPawnHasDoubleMoved(true);
 
-                        BearstersChessMod.LOGGER.info("6");
 
                         Direction facing = blockState.getValue(PawnBlock.FACING);
 
-                        if (!pLevel.getBlockState(pPos.offset(0,-2,0).relative(facing)).is(ModTags.Blocks.IS_CHESS_BOARD)) {
-                            pLevel.setBlock(pPos.offset(0,-1,0),
-                                    ModBlocks.QUEEN.get().defaultBlockState()
-                                            .setValue(QueenBlock.COLOUR, newBlockstate.getValue(PawnBlock.COLOUR))
-                                            .setValue(QueenBlock.FACING,newBlockstate.getValue(PawnBlock.FACING))
-                                    ,3);
+                        if (promotionBlock.is(ModBlocks.PROMOTION_BLOCK.get())) {
+
+                            if (promotionBE instanceof ChessPieceBlockEntity chessPieceBlockEntity1) {
+
+                                BearstersChessMod.LOGGER.info("2 "+chessPieceBlockEntity1.getPieceToPromoteTo());
+
+                                if (chessPieceBlockEntity1.getPieceToPromoteTo().equals(ModBlocks.KNIGHT.get().toString())) {
+                                    pLevel.setBlock(pPos.offset(0,-1,0),
+                                            ModBlocks.KNIGHT.get().defaultBlockState()
+                                                    .setValue(COLOUR, promotionBlock.getValue(COLOUR))
+                                                    .setValue(KnightBlock.FACING, promotionBlock.getValue(FACING))
+                                            , 3);
+                                } else if (chessPieceBlockEntity1.getPieceToPromoteTo().equals(ModBlocks.BISHOP.get().toString())) {
+                                    pLevel.setBlock(pPos.offset(0,-1,0),
+                                            ModBlocks.BISHOP.get().defaultBlockState()
+                                                    .setValue(COLOUR, promotionBlock.getValue(COLOUR))
+                                                    .setValue(KnightBlock.FACING, promotionBlock.getValue(FACING))
+                                            , 3);
+                                } else if (chessPieceBlockEntity1.getPieceToPromoteTo().equals(ModBlocks.ROOK.get().toString())) {
+                                    pLevel.setBlock(pPos.offset(0,-1,0),
+                                            ModBlocks.ROOK.get().defaultBlockState()
+                                                    .setValue(COLOUR, promotionBlock.getValue(COLOUR))
+                                                    .setValue(KnightBlock.FACING, promotionBlock.getValue(FACING))
+                                            , 3);
+                                } else if (chessPieceBlockEntity1.getPieceToPromoteTo().equals(ModBlocks.QUEEN.get().toString())) {
+                                    pLevel.setBlock(pPos.offset(0,-1,0),
+                                            ModBlocks.QUEEN.get().defaultBlockState()
+                                                    .setValue(COLOUR, promotionBlock.getValue(COLOUR))
+                                                    .setValue(KnightBlock.FACING, promotionBlock.getValue(FACING))
+                                            , 3);
+                                }
+
+                            }
                         }
                     }
 
-                    BearstersChessMod.LOGGER.info("7");
 
                     chessPieceBlockEntity.setWhosTurnIsIt(!chessPieceBlockEntity.getWhosTurnIsIt());
                 }
 
-                BearstersChessMod.LOGGER.info("8");
 
 
                 pLevel.setBlockAndUpdate(storedPos, Blocks.AIR.defaultBlockState());
                 pLevel.setBlockAndUpdate(pPos, Blocks.AIR.defaultBlockState());
 
-                BearstersChessMod.LOGGER.info("9");
 
             }
 

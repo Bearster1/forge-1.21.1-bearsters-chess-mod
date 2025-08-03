@@ -10,6 +10,7 @@
     "bearsterschessmod:king",
     "bearsterschessmod:moveable_square",
     "bearsterschessmod:attackable_square",
+    "bearsterschessmod:promotion_block",
     "bearsterschessmod:option"
   ]
 }

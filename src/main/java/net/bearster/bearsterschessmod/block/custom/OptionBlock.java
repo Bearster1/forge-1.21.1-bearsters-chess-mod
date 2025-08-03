@@ -3,6 +3,7 @@ package net.bearster.bearsterschessmod.block.custom;
 import net.bearster.bearsterschessmod.BearstersChessMod;
 import net.bearster.bearsterschessmod.block.ModBlocks;
 import net.bearster.bearsterschessmod.block.entity.custom.ChessPieceBlockEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

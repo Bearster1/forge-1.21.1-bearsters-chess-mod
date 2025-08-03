@@ -31,6 +31,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(ModBlocks.MOVEABLE_SQUARE.get(), "Moveable Square");
         add(ModBlocks.ATTACKABLE_SQUARE.get(), "Attackable Square");
         add(ModBlocks.OPTION.get(), "Option Block");
+        add(ModBlocks.PROMOTION_BLOCK.get(),"Promotion Block");
 
         add("message.bearsterschessmod.win_game_white","White has won the game!");
         add("message.bearsterschessmod.win_game_black","Black has won the game!");

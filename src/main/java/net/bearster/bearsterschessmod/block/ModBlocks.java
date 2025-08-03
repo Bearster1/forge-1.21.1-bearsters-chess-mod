@@ -52,6 +52,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> ATTACKABLE_SQUARE = registerBlock("attackable_square",
             ()-> new AttackableSquareBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK).noOcclusion()));
 
+    public static final RegistryObject<Block> PROMOTION_BLOCK = registerBlock("promotion_block",
+            ()-> new PromotionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK).noOcclusion()));
+
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

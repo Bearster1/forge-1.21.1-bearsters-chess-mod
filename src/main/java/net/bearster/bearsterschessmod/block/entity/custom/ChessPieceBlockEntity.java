@@ -1,5 +1,6 @@
 package net.bearster.bearsterschessmod.block.entity.custom;
 
+import net.bearster.bearsterschessmod.block.ModBlocks;
 import net.bearster.bearsterschessmod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -27,6 +28,7 @@ public class ChessPieceBlockEntity extends BlockEntity {
     private static BlockPos lastDoublePiecePos = BlockPos.ZERO;
     private static Boolean whosTurnIsIt = true;
     private static Boolean forcedTurnTaking = true;
+    private String pieceToPromoteTo = ModBlocks.QUEEN.get().toString();
 
     public ChessPieceBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CHESS_PIECE_BE.get(), pos, state);
@@ -90,6 +92,14 @@ public class ChessPieceBlockEntity extends BlockEntity {
         setChanged();
     }
 
+    public String getPieceToPromoteTo() {
+        return pieceToPromoteTo;
+    }
+
+    public void setPieceToPromoteTo(String pieceToPromoteTo) {
+        this.pieceToPromoteTo = pieceToPromoteTo;
+    }
+
     public List<Integer> getXList() {
         return xList;
     }
@@ -129,6 +139,7 @@ public class ChessPieceBlockEntity extends BlockEntity {
         pTag.putBoolean("whosTurnIsiT", this.whosTurnIsIt);
         pTag.putBoolean("forcedTurnTaking", this.forcedTurnTaking);
         pTag.putBoolean("hasMoved",this.hasMoved);
+        pTag.putString("pieceToPromoteTo",this.pieceToPromoteTo);
     }
 
     @Override
@@ -141,6 +152,7 @@ public class ChessPieceBlockEntity extends BlockEntity {
         this.whosTurnIsIt = pTag.getBoolean("whosTurnIsiT");
         this.forcedTurnTaking = pTag.getBoolean("forcedTurnTaking");
         this.hasMoved = pTag.getBoolean("hasMoved");
+        this.pieceToPromoteTo = pTag.getString("pieceToPromoteTo");
         for (int i : pTag.getIntArray("xList")) {
             xList.add(i);
         }

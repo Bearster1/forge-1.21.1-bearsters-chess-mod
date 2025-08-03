@@ -63,6 +63,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         simpleBlockWithItem(ModBlocks.MOVEABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/moveable_square")));
         simpleBlockWithItem(ModBlocks.ATTACKABLE_SQUARE.get(), models().getExistingFile(BearstersChessMod.loc("block/attackable_square")));
+        simpleBlockWithItem(ModBlocks.PROMOTION_BLOCK.get(), models().getExistingFile(BearstersChessMod.loc("block/promotion_block")));
         
     }
     

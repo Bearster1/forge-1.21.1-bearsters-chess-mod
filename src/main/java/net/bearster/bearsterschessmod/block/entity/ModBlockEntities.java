@@ -25,7 +25,8 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("chess_piece_be", () -> BlockEntityType.Builder.of(
                     ChessPieceBlockEntity::new,
                     ModBlocks.PAWN.get(), ModBlocks.KNIGHT.get(), ModBlocks.BISHOP.get(),
-                    ModBlocks.ROOK.get(), ModBlocks.QUEEN.get(), ModBlocks.KING.get(), ModBlocks.OPTION.get()
+                    ModBlocks.ROOK.get(), ModBlocks.QUEEN.get(), ModBlocks.KING.get(),
+                    ModBlocks.OPTION.get(), ModBlocks.PROMOTION_BLOCK.get()
             ).build(null));
 
     public static void register(IEventBus eventBus) {

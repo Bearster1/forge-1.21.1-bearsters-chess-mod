@@ -29,5 +29,19 @@ public class PromotionScreen extends Screen {
         int y = (height - 166) / 2;
 
         pGuiGraphics.blit(GUI_TEXTURE, x, y, 0, 0, 176, 166);
+
+    }
+
+    @Override
+    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+        if (pMouseX > 12 && pMouseX < 43 &&
+        pMouseY > 67 && pMouseY < 98) {
+
+            this.onClose();
+        }
+
+        return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 }
+
+// This is code from what was meant to be in forge but forge is annoying me so I go to neoforge now
