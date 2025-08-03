@@ -1,1 +1,19 @@
-// 1.21.1	2025-07-14T17:47:57.4714789	Recipes
+// 1.21.1	2025-08-03T20:58:56.187724	Recipes
+aab033beada10e0347df6e0b61b8876f30b9aca8 data/bearsterschessmod/advancement/recipes/misc/bishop.json
+4df1d37542e43ff7c5f98641f60e831781cef874 data/bearsterschessmod/advancement/recipes/misc/black_square.json
+624014bb2b3e9b245ef3fac0ee8054614ea010f0 data/bearsterschessmod/advancement/recipes/misc/king.json
+ceeaf6f8d7f7c2f477cc41d43bf960f7cd4d62ed data/bearsterschessmod/advancement/recipes/misc/knight.json
+168d8c711312d334565b2e68aeac1077bbbc4492 data/bearsterschessmod/advancement/recipes/misc/option.json
+93c30085aaa2f308ab17b361446f583dea936967 data/bearsterschessmod/advancement/recipes/misc/pawn.json
+aa70a5a83f7585575bb0520ab5b8c59d13f20199 data/bearsterschessmod/advancement/recipes/misc/queen.json
+766abbfdceb78483af89e53daf695c1ebc6aea48 data/bearsterschessmod/advancement/recipes/misc/rook.json
+6451c22376d12dcef09603f7947688641c9e01fa data/bearsterschessmod/advancement/recipes/misc/white_square.json
+8a0d45345e9efd0ead708b7b1884512de305f8d0 data/bearsterschessmod/recipe/bishop.json
+2e39d073c57635c9bcb17ac5a60ffc239153869c data/bearsterschessmod/recipe/black_square.json
+4339878f9041903c52046798aa6d6431df260bd8 data/bearsterschessmod/recipe/king.json
+0628c1ffb7508a5a9bc6b459abf484e1a3b588ae data/bearsterschessmod/recipe/knight.json
+7fd31a7099b3831b4205869847621fcdfc27f50e data/bearsterschessmod/recipe/option.json
+bea2e571b3b8af9d77e2d592d1c59301dca7c619 data/bearsterschessmod/recipe/pawn.json
+af7af4a8e39f28cb8de695ff40a29314962b0e68 data/bearsterschessmod/recipe/queen.json
+658a49fc6f02fb0fdca47cefbfde931079e10b56 data/bearsterschessmod/recipe/rook.json
+f39bdbaf54356e7a99efc577dcdca104554c1963 data/bearsterschessmod/recipe/white_square.json
